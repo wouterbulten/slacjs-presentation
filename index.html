@@ -39,7 +39,7 @@
 		<div class="reveal">
 
 			<!-- headers -->
-			<header style="position: absolute;top: 50px; left: 100px; z-index:500;text-align:center;">
+			<header style="position: absolute;top: 50px; z-index:500;text-align:center;left:50px;font-size: 0.7em;">
 				<h4><span class="before"></span><span class="focus" style="font-weight: bold;"></span><span class="after"></span></h4>
 			</header>
 			
@@ -69,7 +69,7 @@
 				<section>
 					<h2>The goal</h2>
 
-					<p>Given an unknown building with <b>(smart) devices</b>, can we localise these devices and the users that walk around?</p>
+					<p>Given an unknown building with (smart) devices, can we localise these devices and the users that walk around?</p>
 					<br>
 					<div style="color: #6E6E6E">
 						<p class="fragment" data-fragment-index="0">Without prior configuration (e.g. building layouts);</p>
@@ -95,13 +95,143 @@
 						.q-header-1 header .after:after { content: ", can we localise these devices and the users that walk around?"; }
 					</style>
 
-					<p>In the &lsquo;Internet of Things&rsquo; devices are connected using some wireless method.</p>
-					<p><em>Received Signal Strength Indicator (RSSI)</em></p>
-					<p>In our case: Bluetooth Low Energy (BLE)</p>
+					<p class="fragment" data-fragment-index="0">In the &lsquo;Internet of Things&rsquo; devices are connected using some wireless method.</p>
+					<p class="fragment" data-fragment-index="1">In our case: Bluetooth Low Energy (BLE)</p>
+					<br>
+					<p class="fragment" data-fragment-index="2"><b>&rarr;</b> <em>Received Signal Strength Indicator (RSSI)</em></p>
 				</section>
 				
 				<section data-state="q-header-1">
+					
+					<img src="img/rssi_example.png" style="border: 0; box-shadow: none;margin-bottom: 0;">
+				
+					<p>Distance to a device affects RSSI</p>
+				</section>
+				
+				<section data-state="q-header-1">
+					<p>Log-distance path loss model:</p>
+					
+					<br>
+					
 					$$RSSI = -10n \log_{10}(\frac{d}{d_{0}}) + A$$
+					
+					<br><br>
+					<ul>
+						<li>$d$ the distance to the device</li>
+						<li>$A$ signal strength at $d_0$</li>
+						<li>$n$ an evironment constant</li>
+					</ul>
+				</section>
+			
+				<section data-state="q-header-2">
+					<style>
+						.q-header-2 header .before:after { content: "Given an unknown building with (smart) devices, can we localise these devices and the "; }
+						.q-header-2 header .focus:after { content: "users"; }
+						.q-header-2 header .after:after { content: " that walk around?"; }
+					</style>
+					
+					<p>Most users carry a smartphone.</p>
+					<p>Utilise accelerometer and compass to predict motion.</p>
+					
+					<br>
+					
+					<dl>
+						<dt>Compass</dt>
+						<dd>Returns heading relative to the global north</dd>
+						<dd>Measured in degrees</dd>
+						<dt>Accelerometer</dt>
+						<dd>Returns physical acceleration in $x, y, z$</dd>
+						<dd>Measured in $m/s^2$</dd>
+					</dl>
+				</section>
+				
+				<section data-state="q-header-3">
+					<style>
+						.q-header-3 header .before:after { content: "Given an unknown building with (smart) devices, can we localise these devices and the users that"; }
+						.q-header-3 header .focus:after { content: " walk "; }
+						.q-header-3 header .after:after { content: "around?"; }
+					</style>
+					
+					<p>So how do we </p>
+				</section>
+				
+				<section>
+					<h2>Building blocks</h2>
+					<ul>
+						<li>Rough distance measure (RSSI)</li>
+						<li>Heading of the user (compass)</li>
+						<li>Travelled distance (pedometer)</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>SLAM</h2>
+					
+					<p>In robotics simultaneously building a map and localising the robot on that map is a common problem.</p>
+					<br>
+					<p><b>Simulteneous Localisation and Mapping (SLAM)</b></p>
+					<br>
+					
+					<p>Estimation is based on robot's <em>controls</em> and <em>sensor readings</em></p>
+				</section>
+				
+				<section>
+					<h2>FastSLAM</h2>
+					
+					<p><em>FastSLAM</em> is an efficient online SLAM algorithm</p>
+				</section>
+				
+				<section>
+				
+					<p>Given a robot's path ($x_t$) landmarks ($m_k$) are independent of each other</p>
+					<img src="img/fastslam_network.png" style="border: 0; box-shadow: none;margin-bottom: 0;">
+				</section>
+				
+				<section>
+				
+					<h2>Replacing robots with humans</h2>
+					
+					<p class="fragment" data-fragment-index="0">Robot &rarr; Human</p>
+					<p class="fragment" data-fragment-index="1">Control &rarr; Heading &amp; Number of steps</p>
+					<p class="fragment" data-fragment-index="2">Sensor readings &rarr; RSSI measurements</p>
+					
+					<br>
+					
+					<h4 class="fragment" data-fragment-index="3"><b>SLAC</b>:<br> Simultaneous Localisation and Configuration</h4>
+				</section>
+				
+				<section>
+					<h2>Implementation details</h2>
+					
+					<p class="fragment" data-fragment-index="0">Fully written in Javascript <br><small>(including pedometer, SLAM algorithm and particle filters and visualisations)</small></p>
+					
+					<p class="fragment" data-fragment-index="1">ECMAScript 6 <br><small>(with BabelJS as transpiler)</small></p>
+					
+					<p class="fragment" data-fragment-index="2">Runs on almost any mobile device<br><small>(Tested on Android &amp; iOS)</small></p>
+				</section>
+				
+				<section>
+					<h2>Demo</h2>
+				
+				</section>
+				
+				<section>
+				
+					<h2>Results</h2>
+				</section>
+				
+				<section>
+				
+					<h2>Future improvements</h2>
+					
+					<p>Map fusing</p>
+					
+				</section>
+				
+				<section>
+				
+					<p>Using an adapted range-only version of <b>FastSLAM</b> from robotics, we <b>replaced</b> the <b>robot</b> with a <b>human</b> and use that to <b>localise</b> both humans and devices inside buildings.</p>
+					
 				</section>
 			</div>
 
