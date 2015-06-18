@@ -48,7 +48,7 @@
 				<section>
 					<h1>&ldquo;Human SLAM&rdquo;</h1>
 					<h3>Simultaneous Localisation and Configuration</h3>
-					<h4>for Wireless Sensor Networks in indoor environments</h4>
+					<h4>for Wireless Sensor Networks and users in indoor environments</h4>
 					<p>
 						<br>Wouter Bulten
 					</p>
@@ -57,17 +57,42 @@
 						&amp; Pim Haselager (<a href="http://www.ru.nl/donders/">Donders Institute</a>)</small>
 					</p>
 
-					<p><small>Part of a Master of Science Thesis in Artificial Intelligence<br><a href="http://www.ru.nl">Radboud University</a></small></p>
+					<p><small>Part of a Master of Science Thesis in Artificial Intelligence<br><a href="http://www.ru.nl">Radboud University</a>, Nijmegen</small></p>
+				</section>
+
+				<section data-background="/img/smarthome.jpg" data-background-transition="none"></section>
+				<section data-background="/img/smartoffice.jpg" data-background-transition="none"></section>
+				<section data-background="/img/airportnav.jpg" data-background-transition="none"></section>
+				<section data-background="/img/smarthospital.jpg" data-background-transition="none"></section>
+				
+				<section>
+				
+					<h4>In a smart home / hospital / office, how do we act when..</h4>
+					
+					<p class="fragment" data-fragment-index="0">We do not know where users are?</p>
+					
+					<p class="fragment" data-fragment-index="1">We do not kwow where are devices are?</p>
+					
+					<p class="fragment" data-fragment-index="2">We do not know when users and devices are close?</p>
+					
+					<br>
+					
+					<h3 class="fragment" data-fragment-index="3">&rarr; <b>Location is key</b> &larr;</h3>
+					
+				</section>
+				
+				<section>
+					
+					<h3>This talk is about robots..<span class="fragment" data-fragment-index="0"><i> but not really.</i></span></h3>
+					<small class="fragment" data-fragment-index="0">(No robots were used during this research)</small>
+					
+					<br>
+					
+					<p class="fragment" data-fragment-index="1">Take a <b>well-known technique</b> from robotics, <b>replace</b> the <b>robot</b> with a <b>human</b> and use that to <b>localise</b> humans and devices inside buildings.</p>
 				</section>
 
 				<section>
-					<h2>Overview</h2>
-
-					<p>Take a <b>well-known technique</b> from robotics, <b>replace</b> the <b>robot</b> with a <b>human</b> and use that to <b>localise</b> humans and devices inside buildings.</p>
-				</section>
-
-				<section>
-					<h2>The goal</h2>
+					<h2>The problem</h2>
 
 					<p>Given an unknown building with (smart) devices, can we localise these devices and the users that walk around?</p>
 					<br>
@@ -172,7 +197,7 @@
 					<p><b>Simulteneous Localisation and Mapping (SLAM)</b></p>
 					<br>
 					
-					<p>Estimation is based on robot's <em>controls</em> and <em>sensor readings</em></p>
+					<p>Given robot's <em>controls</em> and <em>sensor readings</em> what is the current location and map of the environment?</p>
 				</section>
 				
 				<section>
@@ -189,15 +214,22 @@
 				
 				<section>
 				
+					<h2>Principles behind FastSLAM</h2>
+					
+					<p>Two main techniques: <em>Particle Filters</em> and <em>Extended Kalman Filters</em></p>
+				</section>
+				
+				<section>
+				
 					<h2>Replacing robots with humans</h2>
 					
 					<p class="fragment" data-fragment-index="0">Robot &rarr; Human</p>
 					<p class="fragment" data-fragment-index="1">Control &rarr; Heading &amp; Number of steps</p>
 					<p class="fragment" data-fragment-index="2">Sensor readings &rarr; RSSI measurements</p>
-					
+					<p class="fragment" data-fragment-index="3">Focus on robot's path &rarr; Focus on device locations</p>
 					<br>
 					
-					<h4 class="fragment" data-fragment-index="3"><b>SLAC</b>:<br> Simultaneous Localisation and Configuration</h4>
+					<h4 class="fragment" data-fragment-index="4"><b>SLAC</b>:<br> Simultaneous Localisation and Configuration</h4>
 				</section>
 				
 				<section>
@@ -205,9 +237,11 @@
 					
 					<p class="fragment" data-fragment-index="0">Fully written in Javascript <br><small>(including pedometer, SLAM algorithm and particle filters and visualisations)</small></p>
 					
-					<p class="fragment" data-fragment-index="1">ECMAScript 6 <br><small>(with BabelJS as transpiler)</small></p>
+					<p class="fragment" data-fragment-index="1">ECMAScript 6/2015 <br><small>(with BabelJS as transpiler)</small></p>
 					
 					<p class="fragment" data-fragment-index="2">Runs on almost any mobile device<br><small>(Tested on Android &amp; iOS)</small></p>
+					
+					<p class="fragment" data-fragment-index="3">Open Source<br><small>(Released under the LGPL GNU v3 license)<br>(See: <a href="https://github.com/wouterbulten/slacjs">github.com/wouterbulten/slacjs</a>)</small></p>
 				</section>
 				
 				<section>
