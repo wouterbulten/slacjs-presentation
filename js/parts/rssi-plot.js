@@ -6,10 +6,6 @@ Reveal.addEventListener('rssi-plot', function() {
             text: 'Signal Strength at constant distance',
             x: -20 //center
         },
-        xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
         yAxis: {
             title: {
                 text: 'Signal strength (RSSI) in mdB'
@@ -32,7 +28,7 @@ Reveal.addEventListener('rssi-plot', function() {
             valueSuffix: 'mdB'
         },
         series: [{
-            name: 'RSSI at 60cm',
+            name: 'RSSI at 100cm',
             data: Y
         }]
     });

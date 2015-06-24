@@ -16,7 +16,6 @@
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
-		<link rel="stylesheet" href="css/vis.min.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -49,7 +48,7 @@
 				<section>
 					<h1>&ldquo;Human SLAM&rdquo;</h1>
 					<h3>Simultaneous Localisation and Configuration</h3>
-					<h4>for Wireless Sensor Networks and users in indoor environments</h4>
+					<h4>for indoor wireless sensor networks</h4>
 					<p>
 						<br>Wouter Bulten
 					</p>
@@ -70,15 +69,16 @@
 
 					<h4>In a smart home / hospital / office, how do we act when..</h4>
 
-					<p class="fragment" data-fragment-index="0">We do not know where users are?</p>
+					<br>
+					<p class="fragment" data-fragment-index="0">We do not know where users are;</p>
 
-					<p class="fragment" data-fragment-index="1">We do not kwow where are devices are?</p>
+					<p class="fragment" data-fragment-index="0">Locations of devices are unknown;</p>
 
-					<p class="fragment" data-fragment-index="2">We do not know when users and devices are close?</p>
+					<p class="fragment" data-fragment-index="0">and the environment is dynamic?</p>
 
 					<br>
 
-					<h3 class="fragment" data-fragment-index="3">&rarr; <b>Location is key</b> &larr;</h3>
+					<h3 class="fragment" data-fragment-index="1">&rarr; <b>Location is key</b> &larr;</h3>
 
 				</section>
 
@@ -130,11 +130,8 @@
 				</section>
 
 				<section data-state="q-header-1 rssi-plot">
-
-					<!--<img src="img/rssi_example.png" style="border: 0; box-shadow: none;margin-bottom: 0;">-->
-
-					<div id="rssi-chart"></div>
-
+					<section><div id="rssi-chart"></div></section>
+					<section><img src="img/rssi_example.png" style="border: 0; box-shadow: none;margin-bottom: 0;"></section>
 				</section>
 
 				<section data-state="q-header-1">
@@ -150,6 +147,10 @@
 						<li>$A$ signal strength at $d_0$</li>
 						<li>$n$ an evironment constant</li>
 					</ul>
+				</section>
+
+				<section data-state="q-header-1 dist-plot">
+					<div id="dist-chart"></div>
 				</section>
 
 				<section data-state="q-header-2">
@@ -194,33 +195,46 @@
 				</section>
 
 				<section>
-					<h2>SLAM</h2>
+					<section>
+						<h2>SLAM</h2>
 
-					<p>In robotics simultaneously building a map and localising the robot on that map is a common problem.</p>
-					<br>
-					<p><b>Simulteneous Localisation and Mapping (SLAM)</b></p>
-					<br>
+						<p>In robotics simultaneously building a map and localising the robot on that map is a common problem.</p>
+						<br>
+						<p><b>Simulteneous Localisation and Mapping (SLAM)</b></p>
+						<br>
 
-					<p>Given robot's <em>controls</em> and <em>sensor readings</em> what is the current location and map of the environment?</p>
-				</section>
+						<p>Given robot's <em>controls</em> and <em>sensor readings</em> what is the current location and map of the environment?</p>
+					</section>
 
-				<section>
-					<h2>FastSLAM</h2>
+					<section>
+						<h2>FastSLAM</h2>
 
-					<p><em>FastSLAM</em> is an efficient online SLAM algorithm</p>
-				</section>
+						<p><em>FastSLAM</em> is an efficient online SLAM algorithm</p>
 
-				<section>
+						<p>
+					</section>
 
-					<p>Given a robot's path ($x_t$) landmarks ($m_k$) are independent of each other</p>
-					<img src="img/fastslam_network.png" style="border: 0; box-shadow: none;margin-bottom: 0;">
-				</section>
+					<section>
 
-				<section>
+						<p>Given a robot's path ($x_t$) landmarks ($m_k$) are independent of each other</p>
 
-					<h2>Principles behind FastSLAM</h2>
+						<small>
+							$$
+							p(x_{0:t}, m_{1:M} | z_{1:t}, u_{1:t}) = p(x_{0:t} | z_{1:t}, u_{1:t})\; \prod_{i=1}^M p(m_i | x_{0:t}, z_{1:t})
+							$$
+						</small>
 
-					<p>Two main techniques: <em>Particle Filters</em> and <em>Extended Kalman Filters</em></p>
+						<img src="img/fastslam_network.png" style="border: 0; box-shadow: none;margin-bottom: 0;">
+
+
+					</section>
+
+					<section>
+
+						<h2>Principles behind FastSLAM</h2>
+
+						<p>Two main techniques: <em>Particle Filters</em> and <em>Extended Kalman Filters</em></p>
+					</section>
 				</section>
 
 				<section>
@@ -239,7 +253,7 @@
 				<section>
 					<h2>Implementation details</h2>
 
-					<p class="fragment" data-fragment-index="0">Fully written in Javascript <br><small>(including pedometer, SLAM algorithm and particle filters and visualisations)</small></p>
+					<p class="fragment" data-fragment-index="0">Fully written in Javascript <br><small>(including pedometer, SLAM algorithm, particle filters and visualisations)</small></p>
 
 					<p class="fragment" data-fragment-index="1">ECMAScript 6/2015 <br><small>(with BabelJS as transpiler)</small></p>
 
@@ -281,6 +295,7 @@
 		<script src="js/highcharts.js"></script>
 		<script src="js/parts/chart-theme.js"></script>
 		<script src="js/parts/rssi-plot.js"></script>
+		<script src="js/parts/dist-plot.js"></script>
 
 		<script>
 
