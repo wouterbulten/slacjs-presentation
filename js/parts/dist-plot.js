@@ -9,8 +9,6 @@ var sum = dist.map(function(d) {
 	return total + d;
 });
 
-console.log(sum / dist.length);
-
 Reveal.addEventListener('dist-plot', function() {
 	$('#dist-chart').highcharts({
         title: {
