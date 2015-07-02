@@ -130,22 +130,17 @@
 					<p class="fragment" data-fragment-index="2"><b>&rarr;</b> <em>Received Signal Strength Indicator (RSSI)</em></p>
 				</section>
 
-				<section data-state="q-header-1 rssi-plot">
+				<section data-state="chart-rssi">
 					<section>
-						<canvas id="chart-rssi" height="500" width="960"></canvas>
+						<h4>RSSI measurements at different distances</h4>
+						<canvas id="chart-rssi-multi" height="500" width="960"></canvas>
+						<div id="chart-rssi-multi-legend" class="chart-legend"></div>
 					</section>
 					<section><img src="img/rssi_example.png" style="border: 0; box-shadow: none;margin-bottom: 0;"></section>
 				</section>
 
-				<section data-state="q-header-1 dist-plot">
-					<canvas id="chart-rssi-multi" height="500" width="960"></canvas>
-					<div id="chart-rssi-multi-legend" class="chart-legend"></div>
-				</section>
-
-				<section data-state="q-header-1">
-					<p>Log-distance path loss model:</p>
-
-					<br>
+				<section data-state="">
+					<h3>Log-distance path loss model:</h3><br>
 
 					$$RSSI = -10n \log_{10}(\frac{d}{d_{0}}) + A$$
 
@@ -157,9 +152,24 @@
 					</ul>
 				</section>
 
-				<section data-state="q-header-1 dist-plot">
-					<div id="dist-chart"></div>
-					<canvas id="chart-dist" height="500" width="960"></canvas>
+				<section data-state="chart-dist">
+					<h4>Computed distance for static beacons at different distances</h4>
+					<canvas id="chart-dist-spike" height="500" width="960"></canvas>
+					<div id="chart-dist-spike-legend" class="chart-legend"></div>
+				</section>
+
+				<section data-state="chart-kalman">
+					<h4>Kalman filter using a zero motion model</h4>
+					<canvas id="chart-kalman" height="500" width="960"></canvas>
+					<div id="chart-kalman-legend" class="chart-legend"></div>
+				</section>
+
+				<section>
+					<h3>RSSI is not enough..</h3>
+
+					<p>RSSI gives us distance, but distance needs a <em>where</em></p>
+
+					<p></p>
 				</section>
 
 				<section data-state="q-header-2">
@@ -347,6 +357,7 @@
 		<script src="js/Chart.min.js"></script>
 		<script src="js/parts/chart-theme.js"></script>
 
+		<script src="js/parts/kalman-plot.js"></script>
 		<script src="js/parts/rssi-plot.js"></script>
 		<script src="js/parts/dist-plot.js"></script>
 		<script src="js/parts/slac-canvas.js"></script>
@@ -375,6 +386,8 @@
 					{ src: 'plugin/math/math.js', async: true }
 				]
 			});
+
+			Chart.defaults.global.animation = false;
 
 		</script>
 

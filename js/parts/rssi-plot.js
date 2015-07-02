@@ -7,26 +7,6 @@ var Y60 = [-48, -48, -48, -48, -49, -49, -49, -43, -47, -47, -45, -48, -45, -49,
 var Y100 = [-63, -66, -64, -63, -63, -63, -66, -65, -67, -58, -62, -63, -62, -62, -64, -60, -63, -64, -64, -64, -63, -64, -70, -61, -62, -62, -63, -65, -62, -86, -75, -62, -66, -65, -61, -61, -60, -66, -60, -64];
 var Y300 = [-69, -71, -71, -67, -67, -70, -65, -72, -71, -73, -69, -64, -73, -73, -66, -72, -68, -69, -73, -71, -66, -66, -72, -70, -72, -66, -71, -72, -67, -74, -65, -71, -75, -66, -64, -69, -66, -72, -69, -71];
 
-
-
-var rssiData = {
-	labels: Y.map(function(y, i) {
-		return i;
-	}),
-	datasets: [
-		{
-			label: '1m',
-			fillColor: 'rgba(220,220,220,0.2)',
-			strokeColor: '#A3BBBF',
-			pointColor: '#1AA7BE',
-			pointStrokeColor: '#fff',
-			pointHighlightFill: '#fff',
-			pointHighlightStroke: 'rgba(220,220,220,1)',
-			data: Y100
-		}
-	]
-};
-
 var multiRssiData = {
 	labels: Y.map(function(y, i) {
 		return i;
@@ -85,21 +65,10 @@ var multiRssiData = {
 	]
 };
 
-Reveal.addEventListener('ready', function() {
-
-	var ctx = $('#chart-rssi').get(0).getContext('2d');
-	var line = new Chart(ctx).Line(rssiData, {
-		scaleShowGridLines: true,
-		scaleShowHorizontalLines: true,
-		scaleShowVerticalLines: false,
-		datasetStrokeWidth: 5,
-		pointDotRadius: 6,
-		scaleFontSize: 20
-	});
-	$('#chart-rssi-legend').html(line.generateLegend());
+Reveal.addEventListener('chart-rssi', function() {
 
 	var ctx = $('#chart-rssi-multi').get(0).getContext('2d');
-	var line = new Chart(ctx).Line(multiRssiData, {
+	var rssiLine = new Chart(ctx).Line(multiRssiData, {
 		scaleShowGridLines: true,
 		scaleShowHorizontalLines: true,
 		scaleShowVerticalLines: false,
@@ -110,5 +79,5 @@ Reveal.addEventListener('ready', function() {
 
 	});
 
-	$('#chart-rssi-multi-legend').html(line.generateLegend());
+	$('#chart-rssi-multi-legend').html(rssiLine.generateLegend());
 });
