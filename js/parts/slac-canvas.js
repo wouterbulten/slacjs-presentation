@@ -174,21 +174,21 @@ function drawPrediction(ctx, x, y, sd) {
 
 //Draw all frames
 
-drawUser(ctxs[0], [[100,100]]);
+drawUser(ctxs[0], [[100, 100]]);
 
-drawUser(ctxs[1], [[100,100], [300, 100]]);
+drawUser(ctxs[1], [[100, 100], [300, 100]]);
 
-drawUser(ctxs[2], [[100,100], [300, 100]], false);
+drawUser(ctxs[2], [[100, 100], [300, 100]], false);
 drawEllipseWithBezierByCenter(ctxs[2], 300, 100, 150, 190);
 
-drawUser(ctxs[3], [[100,100], [300, 100]], false);
+drawUser(ctxs[3], [[100 ,100], [300, 100]], false);
 drawEllipseWithBezierByCenter(ctxs[3], 300, 100, 150, 190);
 drawParticle(ctxs[3], [[100, 100], [310, 110]]);
 drawParticle(ctxs[3], [[100, 100], [240, 80]]);
 drawParticle(ctxs[3], [[100, 100], [340, 150]]);
 drawParticle(ctxs[3], [[100, 100], [320, 50]]);
 
-drawUser(ctxs[4], [[100,100], [300, 100], [500, 100]], true);
+drawUser(ctxs[4], [[100, 100], [300, 100], [500, 100]], true);
 drawEllipseWithBezierByCenter(ctxs[4], 510, 110, 150, 190);
 drawEllipseWithBezierByCenter(ctxs[4], 540, 80, 150, 190);
 drawEllipseWithBezierByCenter(ctxs[4], 540, 150, 150, 190);
@@ -197,3 +197,9 @@ drawParticle(ctxs[4], [[100, 100], [310, 110], [500, 140]]);
 drawParticle(ctxs[4], [[100, 100], [240, 80], [560, 60]]);
 drawParticle(ctxs[4], [[100, 100], [340, 150], [520, 180]]);
 drawParticle(ctxs[4], [[100, 100], [320, 50], [450, 30]]);
+
+drawUser(ctxs[5], [[100, 100], [300, 100], [500, 100]], true);
+drawParticle(ctxs[5], [[100, 100], [310, 110], [500, 140]]);
+drawParticle(ctxs[5], [[100, 100], [240, 80], [560, 60]]);
+drawParticle(ctxs[5], [[100, 100], [340, 150], [520, 180]]);
+drawParticle(ctxs[5], [[100, 100], [320, 50], [450, 30]]);

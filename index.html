@@ -169,60 +169,21 @@
 
 					<p>RSSI gives us distance, but distance needs a <em>where</em></p>
 
-					<p></p>
-				</section>
-
-				<section data-state="q-header-2">
-					<style>
-						.q-header-2 header .before:after { content: "Given an unknown building with (smart) devices, can we localise these devices and the "; }
-						.q-header-2 header .focus:after { content: "users"; }
-						.q-header-2 header .after:after { content: " that walk around?"; }
-					</style>
-
-					<p>Most users carry a smartphone.</p>
-					<p>Utilise accelerometer and compass to predict motion.</p>
-
 					<br>
-
-					<dl>
-						<dt>Compass</dt>
-						<dd>Returns heading relative to the global north</dd>
-						<dd>Measured in degrees</dd>
-						<dt>Accelerometer</dt>
-						<dd>Returns physical acceleration in $x, y, z$</dd>
-						<dd>Measured in $m/s^2$</dd>
-					</dl>
-				</section>
-
-				<section data-state="q-header-3">
-					<style>
-						.q-header-3 header .before:after { content: "Given an unknown building with (smart) devices, can we localise these devices and the users that"; }
-						.q-header-3 header .focus:after { content: " walk "; }
-						.q-header-3 header .after:after { content: "around?"; }
-					</style>
-
-					<p>So how do we </p>
-				</section>
-
-				<section>
-					<h2>Building blocks</h2>
-					<ul>
-						<li>Rough distance measure (RSSI)</li>
-						<li>Heading of the user (compass)</li>
-						<li>Travelled distance (pedometer)</li>
+					<p class="fragment" data-fragment-index="1">Most users carry a smartphone</p>
+					<ul class="fragment" data-fragment-index="1">
+						<li><em>Accelerometer</em>: physical acceleration in $x, y, z$</li>
+						<li><em>Compass</em>: heading relative to global north</li>
 					</ul>
 				</section>
 
 				<section>
 					<section>
-						<h2>SLAM</h2>
-
-						<p>In robotics simultaneously building a map and localising the robot on that map is a common problem.</p>
+						<h3>Lets talk about robots..</h3>
 						<br>
 						<p><b>Simulteneous Localisation and Mapping (SLAM)</b></p>
-						<br>
+						<p>Given robot's <em>controls</em> and <em>sensor readings</em> what is the current estimated location and map of the environment?</p>
 
-						<p>Given robot's <em>controls</em> and <em>sensor readings</em> what is the current location and map of the environment?</p>
 					</section>
 
 					<section>
@@ -234,8 +195,6 @@
 					</section>
 
 					<section>
-
-						<p>Given a robot's path ($x_t$) landmarks ($m_k$) are independent of each other</p>
 
 						<small>
 							$$
@@ -258,15 +217,52 @@
 
 				<section>
 
-					<h2>Replacing robots with humans</h2>
+					<h3>Replacing robots with humans</h3>
 
 					<p class="fragment" data-fragment-index="0">Robot &rarr; Human</p>
-					<p class="fragment" data-fragment-index="1">Control &rarr; Heading &amp; Number of steps</p>
-					<p class="fragment" data-fragment-index="2">Sensor readings &rarr; RSSI measurements</p>
-					<p class="fragment" data-fragment-index="3">Focus on robot's path &rarr; Focus on device locations</p>
+					<p class="fragment" data-fragment-index="0">Control &rarr; Heading &amp; Number of steps</p>
+					<p class="fragment" data-fragment-index="0">Sensor readings &rarr; RSSI measurements</p>
+					<p class="fragment" data-fragment-index="0">Focus on robot's path &rarr; Focus on device locations</p>
 					<br>
 
 					<h4 class="fragment" data-fragment-index="4"><b>SLAC</b>:<br> Simultaneous Localisation and Configuration</h4>
+				</section>
+
+				<section>
+					<h3>Particle filters</h3>
+
+					<p>Probabilistic implementation of Darwin's <em>Survival of the Fittest</em></p>
+
+					<ol>
+						<li>Approximate the true state by a set of particles</li>
+						<li>Mutate the samples on each step</li>
+						<li>Resample set (with replacement)</li>
+					</ol>
+				</section>
+
+				<section>
+					<img src="img/pf/pf_1.png">
+				</section>
+				<section>
+					<img src="img/pf/pf_2.png">
+				</section>
+				<section>
+					<img src="img/pf/pf_3.png">
+				</section>
+				<section>
+					<img src="img/pf/pf_4.png">
+				</section>
+				<section>
+					<img src="img/pf/pf_5.png">
+				</section>
+				<section>
+					<img src="img/pf/pf_6.png">
+				</section>
+				<section>
+					<img src="img/pf/pf_7.png">
+				</section>
+				<section>
+					<img src="img/pf/pf_8.png">
 				</section>
 
 				<section>
@@ -297,6 +293,8 @@
 				</section>
 				<section>
 					<canvas height="500" width="960" id="slac-canvas-5"></canvas>
+
+					<div style="height: 200px"></div>
 				</section>
 				<section>
 					<canvas height="500" width="960" id="slac-canvas-6"></canvas>
