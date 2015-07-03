@@ -23,3 +23,10 @@
     width: 1200px;
     height: 1000px;
 }
+
+.column-left, .column-right {
+    width: 50%;
+    float: left;
+    height: 500px;
+    font-size: 0.7em !important;
+}

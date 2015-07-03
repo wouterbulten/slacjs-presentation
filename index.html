@@ -62,8 +62,6 @@
 				</section>
 
 				<section data-background="img/smarthome.jpg" data-background-transition="none"></section>
-				<section data-background="img/smartoffice.jpg" data-background-transition="none"></section>
-				<section data-background="img/airportnav.jpg" data-background-transition="none"></section>
 				<section data-background="img/smarthospital.jpg" data-background-transition="none"></section>
 
 				<section>
@@ -73,9 +71,7 @@
 					<br>
 					<p class="fragment" data-fragment-index="0">We do not know where users are;</p>
 
-					<p class="fragment" data-fragment-index="0">Locations of devices are unknown;</p>
-
-					<p class="fragment" data-fragment-index="0">and the environment is dynamic?</p>
+					<p class="fragment" data-fragment-index="0">or locations of devices are unknown?</p>
 
 					<br>
 
@@ -85,37 +81,21 @@
 
 				<section>
 					<h2>Location is key</h2>
-
+					<br>
 					<p>Given an unknown building with (smart) devices, can we localise these devices and the users that walk around inside the building?</p>
 					<br>
 					<div style="color: #6E6E6E">
-						<p class="fragment">Without prior configuration (e.g. building layouts);</p>
-						<p class="fragment">Decentralised (no main hub)</p>
-						<p class="fragment"></p>
-						<p class="fragment">using limited hardware;</p>
-						<p class="fragment">and all computations done in real time.</p>
+						<ul class="fragment">
+							<li>No prior configuration</li>
+							<li>Dynamic environments</li>
+							<li>Real time</li>
+							<li>Privacy</li>
+							<li>No additional hardware</li>
+						</ul>
 					</div>
 				</section>
 
-				<section>
 
-					<h3>This talk is about robots..<span class="fragment" data-fragment-index="0"><i> but not really.</i></span></h3>
-					<small class="fragment" data-fragment-index="0">(No robots were used during this research)</small>
-
-					<br>
-
-					<p class="fragment" data-fragment-index="1">Take a <b>well-known technique</b> from robotics, <b>replace</b> the <b>robot</b> with a <b>human</b> and use that to <b>localise</b> humans and devices inside buildings.</p>
-				</section>
-
-				<section>
-					<h2>Content of this presentation</h2>
-
-					<ul>
-						<li>The building blocks: BLE and smartphones</li>
-						<li>The techniques: Particle Filters &amp; FastSLAM</li>
-						<li>Demo &amp; results</li>
-					</ul>
-				</section>
 
 				<section data-state="q-header-1">
 					<style>
@@ -164,7 +144,13 @@
 					<div id="chart-kalman-legend" class="chart-legend"></div>
 				</section>
 
-				<section>
+				<section data-state="q-header-2">
+					<style>
+						.q-header-2 header .before:after { content: "Given an unknown building with (smart) devices, can we localise these devices and the"; }
+						.q-header-2 header .focus:after { content: " users "; }
+						.q-header-2 header .after:after { content: " that walk around?"; }
+					</style>
+
 					<h3>RSSI is not enough..</h3>
 
 					<p>RSSI gives us distance, but distance needs a <em>where</em></p>
@@ -217,7 +203,7 @@
 
 				<section>
 
-					<h3>Replacing robots with humans</h3>
+					<h3>Replacing robots by humans</h3>
 
 					<p class="fragment" data-fragment-index="0">Robot &rarr; Human</p>
 					<p class="fragment" data-fragment-index="0">Control &rarr; Heading &amp; Number of steps</p>
@@ -241,72 +227,128 @@
 				</section>
 
 				<section>
-					<p>$\bar\chi_t = \chi_t = \emptyset$</p>
-				</section>
-
-				<section>
-					<img src="img/pf/pfi_1.png">
-				</section>
-
-				<section>
-
-					<p>$\bar\chi_t = \chi_t = \emptyset$</p>
-
-					<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
-
-					<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
-
+					<div class="column-left">
+						<img src="img/pf/pfi_1.png">
+					</div>
+					<div class="column-right">
+						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
+					</div>
 				</section>
 				<section>
-					<img src="img/pf/pfi_2.png">
-				</section>
+					<div class="column-left">
+						<img src="img/pf/pfi_2.png">
+					</div>
+					<div class="column-right">
+						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
 
-				<section>
+						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
 
-					<p>$\bar\chi_t = \chi_t = \emptyset$</p>
-
-					<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
-
-					<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
-
-					<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
-
-				</section>
-
-				<section>
-					<img src="img/pf/pfi_2.png">
+						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
+					</div>
 				</section>
 				<section>
-					<img src="img/pf/pfi_3.png">
-				</section>
-				<section>
-					<img src="img/pf/pfi_4.png">
-				</section>
-				<section>
+					<div class="column-left">
+						<img src="img/pf/pfi_2.png">
+					</div>
+					<div class="column-right">
+						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
 
-					<p>$\bar\chi_t = \chi_t = \emptyset$</p>
+						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
 
-					<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
 
-					<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
-
-					<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
-
-					<p><b>Resample step</b>, <code> for</code> $m \in M$<code>:</code></p>
-					<p>draw $i$ with probability $\propto w_t^{[i]}$</p>
-					<p>$\chi_t = \chi_t + x_t^{[i]}$</p>
+						<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
+					</div>
 				</section>
 				<section>
-					<img src="img/pf/pfi_5.png">
+					<div class="column-left">
+						<img src="img/pf/pfi_3.png">
+					</div>
+					<div class="column-right">
+						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
+
+						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+
+						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
+
+						<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
+
+						<p><b>Resample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+						<p>draw $i$ with probability $\propto w_t^{[i]}$</p>
+						<p>$\chi_t = \chi_t + x_t^{[i]}$</p>
+					</div>
 				</section>
 				<section>
-					<img src="img/pf/pfi_6.png">
+					<div class="column-left">
+						<img src="img/pf/pfi_4.png">
+					</div>
+					<div class="column-right">
+						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
+
+						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+
+						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
+
+						<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
+
+						<p><b>Resample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+						<p>draw $i$ with probability $\propto w_t^{[i]}$</p>
+						<p>$\chi_t = \chi_t + x_t^{[i]}$</p>
+					</div>
 				</section>
 				<section>
-					<img src="img/pf/pfi_7.png">
+					<div class="column-left">
+						<img src="img/pf/pfi_5.png">
+					</div>
+					<div class="column-right">
+						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
+
+						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+
+						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
+
+						<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
+
+						<p><b>Resample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+						<p>draw $i$ with probability $\propto w_t^{[i]}$</p>
+						<p>$\chi_t = \chi_t + x_t^{[i]}$</p>
+					</div>
 				</section>
 				<section>
-					<img src="img/pf/pfi_8.png">
+					<div class="column-left">
+						<img src="img/pf/pfi_6.png">
+					</div>
+					<div class="column-right">
+						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
+
+						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+
+						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
+
+						<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
+
+						<p><b>Resample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+						<p>draw $i$ with probability $\propto w_t^{[i]}$</p>
+						<p>$\chi_t = \chi_t + x_t^{[i]}$</p>
+					</div>
+				</section>
+				<section>
+					<div class="column-left">
+						<img src="img/pf/pfi_7.png">
+					</div>
+					<div class="column-right">
+						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
+
+						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+
+						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
+
+						<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
+
+						<p><b>Resample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+						<p>draw $i$ with probability $\propto w_t^{[i]}$</p>
+						<p>$\chi_t = \chi_t + x_t^{[i]}$</p>
+					</div>
 				</section>
 
 				<section data-background="img/github_cropped.png" data-background-transition="none">
@@ -318,7 +360,7 @@
 
 					<p class="fragment" data-fragment-index="2">Runs on almost any mobile device<br><small>(Tested on Android &amp; iOS)</small></p>
 
-					<p class="fragment" data-fragment-index="3">Open Source<br><small>(Released under the LGPL GNU v3 license)<br>(See: <a href="https://github.com/wouterbulten/slacjs">github.com/wouterbulten/slacjs</a>)</small></p>
+					<p class="fragment" data-fragment-index="3">Code on GitHub<br><small>	(See: <a href="https://github.com/wouterbulten/slacjs">github.com/wouterbulten/slacjs</a>)</small></p>
 				</section>
 
 				<section>
@@ -370,6 +412,12 @@
 				center: true,
 				slideNumber: true,
 
+				//Special controls for pointers to skip backup slides
+				keyboard: {
+					34: 'right',
+					33: 'left'
+				},
+
 				transition: 'none', // none/fade/slide/convex/concave/zoom
 
 				// Optional reveal.js plugins
@@ -385,7 +433,11 @@
 			});
 
 			Chart.defaults.global.animation = false;
-
+			$(document).on("keypress", function (e) {
+			    console.log(e.which)
+				console.log(e)
+				alert(e.which);
+			});
 		</script>
 
 	</body>
