@@ -113,7 +113,7 @@
 				<section data-state="chart-rssi">
 					<section>
 						<h4>RSSI measurements at different distances</h4>
-						<canvas id="chart-rssi-multi" height="500" width="960"></canvas>
+						<canvas id="chart-rssi-multi" height="500" width="960" class="chart-canvas"></canvas>
 						<div id="chart-rssi-multi-legend" class="chart-legend"></div>
 					</section>
 					<section><img src="img/rssi_example.png" style="border: 0; box-shadow: none;margin-bottom: 0;"></section>
@@ -356,20 +356,23 @@
 				</section>
 
 				<section>
-					<p>$$h_i = \sqrt[]{(x_t^u - x_{t}^{[i]})^2 + (y_t^u - y_t^{[i]})^2}$$</p>
+					<h3>EKF Update</h3>
+					<div class="column-left">
+						\begin{align}
+							h_i &= \sqrt[]{(x_t^u - x_{t}^{[i]})^2 + (y_t^u - y_t^{[i]})^2}\\
+							v &= z_i - h\\
+							H &= [\frac{x_t^u - x_{t}^{[i]}}{h_i}, \frac{y_t^u - y_t^{[i]}}{h_i}]^T\\
+							\sigma_v &= H \Sigma_t^{[i]} H^T + Q_t\\
+							K &= \Sigma_{t}^{[i]} H^T \sigma_v^{-1}
+						\end{align}
 
-					<p>$$v = z_i - h$$</p>
+					</div>
 
-					<p>$$\sigma_v = H \Sigma_t^{[i]} H^T + Q_t$$</p>
+					<div class="column-right">
+						<p>$$[x_{t+1}^{[i]}, y_{t+1}^{[i]}]^T = [x_{t}^{[i]}, y_{t}^{[i]}]^T + Kv$$</p>
 
-					<p>$$H = [\frac{x_t^u - x_{t}^{[i]}}{h_i}, \frac{y_t^u - y_t^{[i]}}{h_i}]^T$$</p>
-
-					<p>$$K = \Sigma_{t}^{[i]} H^T \sigma_v^{-1}$$</p>
-
-					<p>$$[x_{t+1}^{[i]}, y_{t+1}^{[i]}]^T = [x_{t}^{[i]}, y_{t}^{[i]}]^T + Kv$$</p>
-
-					<p>$$\Sigma_{t+1}^{[i]} = \Sigma_{t}^{[i]} - K \sigma_v K^T$$</p>
-
+						<p>$$\Sigma_{t+1}^{[i]} = \Sigma_{t}^{[i]} - K \sigma_v K^T$$</p>
+					</div>
 				</section>
 
 				<section>
@@ -414,15 +417,10 @@
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
 		<script src="js/jquery.min.js"></script>
-		<script src="js/highcharts.js"></script>
 		<script src="js/Chart.min.js"></script>
-		<script src="js/parts/chart-theme.js"></script>
-
-		<script src="js/parts/kalman-plot.js"></script>
-		<script src="js/parts/rssi-plot.js"></script>
-		<script src="js/parts/dist-plot.js"></script>
-
 		<script>
+			//Simple hack to scale up all charts
+			window.devicePixelRatio = 2;
 
 			// Full list of configuration options available at:
 			// https://github.com/hakimel/reveal.js#configuration
@@ -454,12 +452,16 @@
 			});
 
 			Chart.defaults.global.animation = false;
-			$(document).on("keypress", function (e) {
-			    console.log(e.which)
-				console.log(e)
-				alert(e.which);
-			});
+			// Boolean - whether or not the chart should be responsive and resize when the browser does.
+    		Chart.defaults.global.responsive = false;
+    		// Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+    		Chart.defaults.global.maintainAspectRatio = true;
+
 		</script>
+
+		<script src="js/parts/kalman-plot.js"></script>
+		<script src="js/parts/rssi-plot.js"></script>
+		<script src="js/parts/dist-plot.js"></script>
 
 	</body>
 </html>
