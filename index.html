@@ -378,38 +378,61 @@
 				<section>
 					<h2>Implementation details</h2>
 
-					<p>Fully written in Javascript <br><small>(including pedometer, SLAM algorithm, particle filters and visualisations)</small></p>
+					<div class="column-left">
+						<p>Fully written in Javascript <br><small>(including pedometer, SLAM algorithm, particle filters and visualisations)</small></p>
 
-					<p>ECMAScript 6/2015 <br><small>(with BabelJS as transpiler)</small></p>
+						<p>ECMAScript 6/2015 <br><small>(with BabelJS as transpiler)</small></p>
 
-					<p>Runs on almost any mobile device<br><small>(Tested on Android &amp; iOS)</small></p>
+						<p>Built for Android &amp; iOS<br><small>(Using Cordova)</small></p>
 
-					<p>Code on GitHub<br><small>	(See: <a href="https://github.com/wouterbulten/slacjs">github.com/wouterbulten/slacjs</a>)</small></p>
+						<p>DoBeacons from <a href="https://www.dobots.nl">DoBots</a><br><small>(iBeacon compatible, BLE)</small></p>
+
+						<p>Code on GitHub<br><small>	(See: <a href="https://github.com/wouterbulten/slacjs">github.com/wouterbulten/slacjs</a>)</small></p>
+					</div>
+
+					<div class="column-right">
+						<img src="img/apps/devices.png">
+					</div>
 				</section>
 
 				<section>
 					<h2>Demo</h2>
 
+					<small>(movie of recorded data)</small>
 				</section>
 
 				<section>
 
 					<h2>Results</h2>
+
+					<small>(Graph showing average error for landmarks)</small>
 				</section>
 
 				<section>
+					<h2>More?</h2>
 
-					<h2>Future improvements</h2>
+					<div class="column-left">
+						<h4>Short term</h4>
+						<img class="fragment" src="img/location_testing.png">
+						<img class="fragment" src="img/future_init.png" style="position: absolute; left: 100px; bottom: 0; height: 300px">
+					</div>
+					<div class="column-right">
+						<h4>Long term</h4>
 
-					<p>Map fusing</p>
-
+						Improve accuracy of motion data
+						Map fusing
+						Sending data to devices
+					</div>
 				</section>
-
 				<section>
 
-					<p>Using an adapted range-only version of <b>FastSLAM</b> from robotics, we <b>replaced</b> the <b>robot</b> with a <b>human</b> and use that to <b>localise</b> both humans and devices inside buildings.</p>
+					<h2>``Human SLAM``</h2>
+
+					<p>Using an adapted range-only version of <b>FastSLAM</b> from robotics, we <b>replaced</b> the <b>robot</b> with a <b>human</b> and used that to <b>localise</b> both humans and devices inside buildings.</p>
+
 
 				</section>
+
 			</div>
 
 		</div>
