@@ -401,6 +401,13 @@
 					<small>(movie of recorded data)</small>
 				</section>
 
+				<section data-background="#eeeeee">
+					<video class="stretch" controls>
+						<source data-src="videos/slacjs-simulation.webm" type="video/webm" />
+						<source data-src="videos/slacjs-simulation.mp4" type="video/mp4" />
+					</video>
+				</section>
+
 				<section>
 
 					<h2>Results</h2>
@@ -408,10 +415,19 @@
 					<small>(Graph showing average error for landmarks)</small>
 				</section>
 
-				<section data-state="chart-sim-1">
-					<h4>Simulation data</h4>
-					<canvas id="chart-sim-1" height="500" width="960"></canvas>
-					<div id="chart-sim-1-legend" class="chart-legend"></div>
+				<section>
+					<section  data-state="chart-sim-1">
+						<h4>Simulation data</h4>
+						<canvas id="chart-sim-1" height="500" width="960"></canvas>
+						<div id="chart-sim-1-legend" class="chart-legend"></div>
+					</section>
+
+					<section>
+						<h4>Simulation data</h4>
+
+						<p>Noisy movement: 0.65 m (sd 0.20 m)</p>
+						<p>Perfect world: 0.39 m (sd 0.07)</p)
+					</section>
 				</section>
 
 				<section>
