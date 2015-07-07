@@ -36,25 +36,6 @@ var noisyMovementStd = [
 0.315258183097,
 0.26934916934];
 
-var almende1Mean = [
-2.46673402365,
-0.771116295227,
-1.92613602778,
-4.62210849144,
-0.987561837105,
-4.67715863011,
-0.558590586276,
-3.72446629762];
-var almende1Std = [
-0.556599741511,
-0.400440764329,
-0.886162695169,
-3.21829627477,
-0.421768798508,
-2.21434912424,
-0.240493163325,
-0.892477408968];
-
 var labels = ['Average', 'Beacon 1', 'Beacon 2', 'Beacon 3', 'Beacon 4', 'Beacon 5', 'Beacon 6', 'Beacon 7'];
 
 var simData1 = {
@@ -79,16 +60,6 @@ var simData1 = {
 			pointHighlightFill: '#fff',
 			pointHighlightStroke: 'rgba(220,220,220,1)',
 			data: noisyMovementMean
-		},
-		{
-			label: 'Real world',
-			fillColor: 'rgba(26,167,190,0.3)',
-			strokeColor: 'rgba(26,167,190,0.4)',
-			pointColor: 'rgba(26,167,190,1.0)',
-			pointStrokeColor: '#fff',
-			pointHighlightFill: '#fff',
-			pointHighlightStroke: 'rgba(220,220,220,1)',
-			data: almende1Mean
 		}
 	]
 };
