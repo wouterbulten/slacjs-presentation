@@ -402,10 +402,18 @@
 				</section>
 
 				<section data-background="#eeeeee">
-					<video class="stretch" controls>
-						<source data-src="videos/slacjs-simulation.webm" type="video/webm" />
-						<source data-src="videos/slacjs-simulation.mp4" type="video/mp4" />
-					</video>
+
+					<section data-state="slacjs-demo">
+						<canvas id="slacjs-map" height="600" width="600"></canvas>
+						<p>Current average error: <span class="landmark-error"></span></p>
+					</section>
+
+					<section>
+						<video class="stretch" controls>
+							<source data-src="videos/slacjs-simulation.webm" type="video/webm" />
+							<source data-src="videos/slacjs-simulation.mp4" type="video/mp4" />
+						</video>
+					</section>
 				</section>
 
 				<section>
@@ -510,6 +518,11 @@
 		<script src="js/parts/rssi-plot.js"></script>
 		<script src="js/parts/dist-plot.js"></script>
 		<script src="js/parts/simulation-plot.js"></script>
+
+
+		<script src="slacjs/assets/js/browser-polyfill.js"></script>
+		<script src="slacjs/assets/js/slacjs-app.js"></script>
+		<script src="js/parts/slacjs-demo.js"></script>
 
 	</body>
 </html>
