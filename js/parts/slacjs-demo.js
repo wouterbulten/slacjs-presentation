@@ -12,6 +12,7 @@ Reveal.addEventListener('slacjs-demo', function() {
 
 	if (SlacApp.user !== undefined) {
 		SlacApp.reset();
+		$('.landmark-error').html('&infin;');
 	}
 
 	SlacApp.initialize();

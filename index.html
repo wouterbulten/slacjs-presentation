@@ -77,33 +77,34 @@
 
 					<br>
 
-					<h3 class="fragment" data-fragment-index="1">&rarr; <b>Location is key</b> &larr;</h3>
+					<h3 class="fragment" data-fragment-index="0">&rarr; <b>Location is key</b> &larr;</h3>
 
 				</section>
 
 				<section>
 					<h2>Problem statement</h2>
 					<br>
-					<p>Given an unknown building with (smart) devices, can we localise these devices and the users that walk around inside the building?</p>
+					<p>Given an <em>unknown</em> building with (smart) devices, can we localise these devices and the users that walk around inside the building?</p>
 					<br>
-					<div style="color: #6E6E6E">
-						<ul class="fragment">
-							<li>No prior configuration</li>
-							<li>Dynamic environments</li>
-							<li>Real time</li>
-							<li>Privacy</li>
-							<li>No additional hardware</li>
-						</ul>
+					<div style="color: #6E6E6E" class="fragment">
+						No prior configuration or hardware
+						<br>
+						Dynamic environments
+						<br>
+						Privacy
+						<br>
+						Real time
 					</div>
 				</section>
 
 				<section>
 					<h2>Outline</h2>
-					Sources of Input<br>
 
-					FastSLAM &amp; Particle Filters<br>
+					<p><span style="color: #6E6E6E">Sources of Input:</span> &nbsp;<i>What can we use?</i></p>
 
-					Demo
+					<p><span style="color: #6E6E6E">How?</span> &nbsp;<i>FastSLAM &amp; Particle Filters</i></p>
+
+					<p><span style="color: #6E6E6E">The result:</span> &nbsp;<i>Demo, simulations and real world testing</i></p>
 				</section>
 
 				<section>
@@ -160,14 +161,21 @@
 
 					<p>RSSI gives us distance, but distance needs a <em>where</em></p>
 
-					<br>
-					<p class="fragment" data-fragment-index="1">Most users carry a smartphone</p>
-					<ul class="fragment" data-fragment-index="1">
-						<li><em>Accelerometer</em>: physical acceleration in $x, y, z$</li>
-						<li><em>Compass</em>: heading relative to global north</li>
-					</ul>
-					<br>
-					<img src="img/device_axes.jpg" style="height: 200px" class="fragment" data-fragment-index="1">
+					<div class="fragment" data-fragment-index="1">
+						<div class="column-left" style="width: 70%">
+							<br>
+							<dl>
+								<dt>Accelerometer</dt>
+								<dd>Physical acceleration in $x, y, z$</dd>
+								<dt>Compass</dt>
+								<dd>Heading relative to global north</dd>
+							</dl>
+						</div>
+
+						<div class="column-right" style="width: 30%">
+							<img src="img/device_axes.jpg">
+						</div>
+					</div>
 				</section>
 
 				<section>
@@ -175,12 +183,8 @@
 					<p><b>Simulteneous Localisation and Mapping (SLAM)</b></p>
 
 					<p>Given robot's <em>controls</em> and <em>sensor readings</em> what is the current estimated location and map of the environment?</p>
-				</section>
 
-				<section>
-
-					<h3>Replacing robots by humans</h3>
-
+					<br>
 					<p class="fragment" data-fragment-index="0">Robot &rarr; Human</p>
 					<p class="fragment" data-fragment-index="0">Control &rarr; Heading &amp; Number of steps</p>
 					<p class="fragment" data-fragment-index="0">2D Sensor readings &rarr; 1D RSSI measurements</p>
@@ -229,7 +233,7 @@
 								</li>
 								<li>Importance weight:
 									<br>
-									<p>$$w$$</p>
+									<p>$$w = f(z \;|\; h, \sigma)$$</p>
 								</li>
 
 								<li>Trace of the user's path:
@@ -464,22 +468,29 @@
 				</section>
 
 				<section>
-					<h2>Findings</h2>
+					<h4>Difference in performance between simulation and real world</h4>
 
-					<ul>
-						<li>Large difference between simuation and real world</li>
-						<li>Beacon performance is dependent on movement and location</li>
-						<li>Real time, locally computable and no additional hardware</li>
-					</ul>
+					<p>Walls, obstacles, users themselves</p>
+					<p>Mirroring errors</p>
+					<p>&rarr; Invest in better motion modelling</p>
+					<p>&rarr; Use more of the environment</p>
+
+					<br>
+					<h4>Beacon performance fluctuates</h4>
+
+					<p>Dependent on movement and location.</p>
+					<p>&rarr; Longer traces</p>
+					<p>&rarr; <i>Map fusing</i></p>
 
 				</section>
 
 				<section>
 
 					<h2>&ldquo;Human SLAM&rdquo;</h2>
-
+					<br>
 					<p>Using an adapted range-only version of <b>FastSLAM</b> from robotics, we <b>replaced</b> the <b>robot</b> with a <b>human</b> and used that to <b>localise</b> both humans and devices inside buildings.</p>
-
+					<br>
+					<h4>Realtime / room-level accuracy / without prior information</h4>
 				</section>
 
 			</div>
@@ -501,7 +512,7 @@
 				progress: true,
 				history: true,
 				center: true,
-				slideNumber: true,
+				slideNumber: false,
 
 				//Special controls for pointers to skip backup slides
 				keyboard: {
