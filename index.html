@@ -172,7 +172,7 @@
 						$$\bar\Sigma_t = A_t \Sigma_{t-1} A_t^T + R_t$$
 
 						<br>
-						
+
 						$$K_t = \bar\Sigma_t C_t^T (C_t \bar\Sigma_t C_t^T + Q_t)^{-1}$$
 
 						<br>
@@ -206,19 +206,22 @@
 				</section>
 
 				<section>
-					<h3>Lets talk about robots..</h3>
-					<p><b>Simulteneous Localisation and Mapping (SLAM)</b></p>
+					<section>
+						<h3>Lets talk about robots..</h3>
+						<p><b>Simulteneous Localisation and Mapping (SLAM)</b></p>
 
-					<p>Given robot's <em>controls</em> and <em>sensor readings</em> what is the current estimated location and map of the environment?</p>
+						<p>Given robot's <em>controls</em> and <em>sensor readings</em> what is the current estimated location and map of the environment?</p>
 
-					<br>
-					<p class="fragment" data-fragment-index="0">Robot &rarr; Human</p>
-					<p class="fragment" data-fragment-index="0">Control &rarr; Heading &amp; Number of steps</p>
-					<p class="fragment" data-fragment-index="0">2D Sensor readings &rarr; 1D RSSI measurements</p>
-					<p class="fragment" data-fragment-index="0">Focus on robot's path &rarr; Focus on device locations</p>
-
+						<br>
+						<img class="fragment" src="img/robottohuman.png">
+					</section>
+					<section>
+						<p>Robot &rarr; Human</p>
+						<p>Control &rarr; Heading &amp; Number of steps</p>
+						<p>2D Sensor readings &rarr; 1D RSSI measurements</p>
+						<p>Focus on robot's path &rarr; Focus on device locations</p>
+					</section>
 				</section>
-
 				<section>
 					<h3>FastSLAM</h3>
 
