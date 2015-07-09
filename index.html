@@ -63,7 +63,7 @@
 
 					<br>
 
-					<p><i>"Every wall socket made smart!"</i></p>
+					<p>Intelligent wall socket for smart spaces - <a href="https://dobots.nl/">DoBots</a></p>
 				</section>
 
 				<section>
@@ -77,24 +77,34 @@
 
 					<br>
 
-					<h3 class="fragment" data-fragment-index="1">&rarr; <b>Location is key</b> &larr;</h3>
+					<h3 class="fragment" data-fragment-index="0">&rarr; <b>Location is key</b> &larr;</h3>
 
 				</section>
 
 				<section>
 					<h2>Problem statement</h2>
 					<br>
-					<p>Given an unknown building with (smart) devices, can we localise these devices and the users that walk around inside the building?</p>
+					<p>Given an <em>unknown</em> building with (smart) devices, can we localise these devices and the users that walk around inside the building?</p>
 					<br>
-					<div style="color: #6E6E6E">
-						<ul class="fragment">
-							<li>No prior configuration</li>
-							<li>Dynamic environments</li>
-							<li>Real time</li>
-							<li>Privacy</li>
-							<li>No additional hardware</li>
-						</ul>
+					<div style="color: #6E6E6E" class="fragment">
+						No prior configuration or hardware
+						<br>
+						Dynamic environments
+						<br>
+						Privacy
+						<br>
+						Real time
 					</div>
+				</section>
+
+				<section>
+					<h2>Outline</h2>
+
+					<p><span style="color: #6E6E6E">Sources of Input:</span> &nbsp;<i>What can we use?</i></p>
+
+					<p><span style="color: #6E6E6E">How?</span> &nbsp;<i>FastSLAM &amp; Particle Filters</i></p>
+
+					<p><span style="color: #6E6E6E">The result:</span> &nbsp;<i>Demo, simulations and real world testing</i></p>
 				</section>
 
 				<section>
@@ -111,7 +121,7 @@
 				<section data-state="chart-rssi">
 					<section>
 						<h4>Measured RSSI</h4>
-						<small>Beacon at fixed distances to the receiver with clear line of sight<</small>
+						<small>Beacon at fixed distances to the receiver with clear line of sight</small>
 						<canvas id="chart-rssi-multi" height="500" width="960" class="chart-canvas"></canvas>
 						<div id="chart-rssi-multi-legend" class="chart-legend"></div>
 					</section>
@@ -138,11 +148,38 @@
 					<div id="chart-dist-spike-legend" class="chart-legend"></div>
 				</section>
 
-				<section data-state="chart-kalman">
-					<h4>Filtered RSSI signal</h4>
-					<small>Using a Kalman filter with static motion model</small>
-					<canvas id="chart-kalman" height="500" width="960"></canvas>
-					<div id="chart-kalman-legend" class="chart-legend"></div>
+				<section>
+					<section data-state="chart-kalman">
+						<h4>Filtered RSSI signal</h4>
+						<small>Using a Kalman filter with static motion model</small>
+						<canvas id="chart-kalman" height="500" width="960"></canvas>
+						<div id="chart-kalman-legend" class="chart-legend"></div>
+					</section>
+
+					<section>
+						$$
+						x_{t} = A_{t}x_{t-1} + B_{t}u_{t} + \epsilon_{t}
+						$$
+
+						$$
+						z_{t} = C_{t}x_{t} + \delta_{t}
+						$$
+
+						<hr>
+
+						$$\bar\mu_t = A_t \mu_{t-1} + B_t u_t$$
+
+						$$\bar\Sigma_t = A_t \Sigma_{t-1} A_t^T + R_t$$
+
+						<br>
+						
+						$$K_t = \bar\Sigma_t C_t^T (C_t \bar\Sigma_t C_t^T + Q_t)^{-1}$$
+
+						<br>
+						$$\mu_t = \bar\mu_t + K_t(z_t - C_t \bar\mu_t)$$
+
+						$$\Sigma_t = (I - K_t C_t) \bar\Sigma_t$$
+					</section>
 				</section>
 
 				<section>
@@ -151,62 +188,45 @@
 
 					<p>RSSI gives us distance, but distance needs a <em>where</em></p>
 
+					<div class="fragment" data-fragment-index="1">
+						<div class="column-left" style="width: 70%">
+							<br>
+							<dl>
+								<dt>Accelerometer</dt>
+								<dd>Physical acceleration in $x, y, z$</dd>
+								<dt>Compass</dt>
+								<dd>Heading relative to global north</dd>
+							</dl>
+						</div>
+
+						<div class="column-right" style="width: 30%">
+							<img src="img/device_axes.jpg">
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h3>Lets talk about robots..</h3>
+					<p><b>Simulteneous Localisation and Mapping (SLAM)</b></p>
+
+					<p>Given robot's <em>controls</em> and <em>sensor readings</em> what is the current estimated location and map of the environment?</p>
+
 					<br>
-					<p class="fragment" data-fragment-index="1">Most users carry a smartphone</p>
-					<ul class="fragment" data-fragment-index="1">
-						<li><em>Accelerometer</em>: physical acceleration in $x, y, z$</li>
-						<li><em>Compass</em>: heading relative to global north</li>
-					</ul>
-				</section>
-
-				<section>
-					<section>
-						<h3>Lets talk about robots..</h3>
-						<br>
-						<p><b>Simulteneous Localisation and Mapping (SLAM)</b></p>
-						<p>Given robot's <em>controls</em> and <em>sensor readings</em> what is the current estimated location and map of the environment?</p>
-
-					</section>
-
-					<section>
-						<h2>FastSLAM</h2>
-
-						<p><em>FastSLAM</em> is an efficient online SLAM algorithm</p>
-
-						<p>
-					</section>
-
-					<section>
-
-						<small>
-							$$
-							p(x_{0:t}, m_{1:M} | z_{1:t}, u_{1:t}) = p(x_{0:t} | z_{1:t}, u_{1:t})\; \prod_{i=1}^M p(m_i | x_{0:t}, z_{1:t})
-							$$
-						</small>
-
-						<img src="img/fastslam_network.png" style="border: 0; box-shadow: none;margin-bottom: 0;">
-
-					</section>
-
-					<section>
-
-						<h2>Principles behind FastSLAM</h2>
-
-						<p>Two main techniques: <em>Particle Filters</em> and <em>Extended Kalman Filters</em></p>
-					</section>
-				</section>
-
-				<section>
-
-					<h3>Replacing robots by humans</h3>
-
 					<p class="fragment" data-fragment-index="0">Robot &rarr; Human</p>
 					<p class="fragment" data-fragment-index="0">Control &rarr; Heading &amp; Number of steps</p>
-					<p class="fragment" data-fragment-index="0">Sensor readings &rarr; RSSI measurements</p>
+					<p class="fragment" data-fragment-index="0">2D Sensor readings &rarr; 1D RSSI measurements</p>
 					<p class="fragment" data-fragment-index="0">Focus on robot's path &rarr; Focus on device locations</p>
-					<br>
 
-					<h4 class="fragment" data-fragment-index="4"><b>SLAC</b>:<br> Simultaneous Localisation and Configuration</h4>
+				</section>
+
+				<section>
+					<h3>FastSLAM</h3>
+
+					<img src="img/fastslam_network.png" style="height: 400px;">
+
+					$$
+					p(x_{0:t}, m_{1:M} | z_{1:t}, u_{1:t}) = p(x_{0:t} | z_{1:t}, u_{1:t})\; \prod_{i=1}^M p(m_i | x_{0:t}, z_{1:t})
+					$$
 				</section>
 
 				<section>
@@ -219,6 +239,57 @@
 						<li>Mutate the samples on each step</li>
 						<li>Resample set (with replacement)</li>
 					</ol>
+				</section>
+
+				<section>
+					<section>
+						<div class="column-left" style="width: 60%;">
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="557px" height="680px" version="1.1"><defs><linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="mx-gradient-f5f5f5-1-e6e6e6-1-s-0"><stop offset="0%" style="stop-color:#F5F5F5"/><stop offset="100%" style="stop-color:#E6E6E6"/></linearGradient></defs><g transform="translate(0.5,0.5)"><rect x="49" y="240" width="490" height="310" rx="18.6" ry="18.6" fill="url(#mx-gradient-f5f5f5-1-e6e6e6-1-s-0)" stroke="none" pointer-events="none"/><ellipse cx="192" cy="32" rx="30" ry="30" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(173,26)"><switch><foreignObject pointer-events="all" width="38" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 38px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Start</div></div></foreignObject><text x="19" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><rect x="122" y="82" width="140" height="50" rx="3" ry="3" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(123,94)"><switch><foreignObject pointer-events="all" width="138" height="30" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 136px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Read RSSI &amp; motion data</div></div></foreignObject><text x="69" y="21" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 192 62 L 192 75.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 192 80.88 L 188.5 73.88 L 192 75.63 L 195.5 73.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 192 147 L 237 187 L 192 227 L 147 187 Z" fill="#ffffff" stroke="#000000" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(158,181)"><switch><foreignObject pointer-events="all" width="68" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 68px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">New step?</div></div></foreignObject><text x="34" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 192 132 L 192 142 L 192 137 L 192 140.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 192 145.88 L 188.5 138.88 L 192 140.63 L 195.5 138.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 237 187 L 302 187 L 302 107 L 268.37 107" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 263.12 107 L 270.12 103.5 L 268.37 107 L 270.12 110.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(294,140)"><switch><foreignObject pointer-events="all" width="17" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; white-space: nowrap; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;background-color:#ffffff;">No</div></div></foreignObject><text x="9" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><rect x="122" y="278" width="140" height="50" rx="3" ry="3" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(138,297)"><switch><foreignObject pointer-events="all" width="108" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 108px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Sample new pose</div></div></foreignObject><text x="54" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 192 227 L 192 271.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 192 276.88 L 188.5 269.88 L 192 271.63 L 195.5 269.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(181,248)"><switch><foreignObject pointer-events="all" width="23" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; white-space: nowrap; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;background-color:#ffffff;">Yes</div></div></foreignObject><text x="12" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 192 343 L 237 383 L 192 423 L 147 383 Z" fill="#ffffff" stroke="#000000" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(158,370)"><switch><foreignObject pointer-events="all" width="68" height="30" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 68px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">New <div>landmark?</div></div></div></foreignObject><text x="34" y="21" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 192 328 L 192 338 L 192 333 L 192 336.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 192 341.88 L 188.5 334.88 L 192 336.63 L 195.5 334.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><rect x="352" y="278" width="140" height="50" rx="3" ry="3" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(372,297)"><switch><foreignObject pointer-events="all" width="100" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 100px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Initialisation filter</div></div></foreignObject><text x="50" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><rect x="122" y="457" width="140" height="50" rx="3" ry="3" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(153,476)"><switch><foreignObject pointer-events="all" width="78" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 78px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Update EKF</div></div></foreignObject><text x="39" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 192 423 L 192 450.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 192 455.88 L 188.5 448.88 L 192 450.63 L 195.5 448.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(184,428)"><switch><foreignObject pointer-events="all" width="17" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; white-space: nowrap; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;background-color:#ffffff;">No</div></div></foreignObject><text x="9" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 237 383 L 295 383 L 295 303 L 345.63 303" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 350.88 303 L 343.88 306.5 L 345.63 303 L 343.88 299.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(282,349)"><switch><foreignObject pointer-events="all" width="23" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; white-space: nowrap; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;background-color:#ffffff;">Yes</div></div></foreignObject><text x="12" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><rect x="122" y="570" width="140" height="50" rx="3" ry="3" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(159,589)"><switch><foreignObject pointer-events="all" width="66" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 66px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Resample</div></div></foreignObject><text x="33" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 192 507 L 192 563.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 192 568.88 L 188.5 561.88 L 192 563.63 L 195.5 561.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 422 343 L 467 383 L 422 423 L 377 383 Z" fill="#ffffff" stroke="#000000" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(393,370)"><switch><foreignObject pointer-events="all" width="58" height="30" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 58px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Estimate<div>ready?</div></div></div></foreignObject><text x="29" y="21" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 422 328 L 422 338 L 422 333 L 422 336.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 422 341.88 L 418.5 334.88 L 422 336.63 L 425.5 334.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><rect x="352" y="457" width="140" height="50" rx="3" ry="3" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(395,476)"><switch><foreignObject pointer-events="all" width="54" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 54px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Init EKF</div></div></foreignObject><text x="27" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 422 423 L 422 450.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 422 455.88 L 418.5 448.88 L 422 450.63 L 425.5 448.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(411,430)"><switch><foreignObject pointer-events="all" width="23" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; white-space: nowrap; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;background-color:#ffffff;">Yes</div></div></foreignObject><text x="12" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 352 482 L 268.37 482" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 263.12 482 L 270.12 478.5 L 268.37 482 L 270.12 485.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 192 620 L 192 670 L 547 670 L 547 32 L 228.37 32" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 223.12 32 L 230.12 28.5 L 228.37 32 L 230.12 35.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 467 383 L 519 383 L 519 595 L 268.37 595" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 263.12 595 L 270.12 591.5 L 268.37 595 L 270.12 598.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(484,378)"><switch><foreignObject pointer-events="all" width="17" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; white-space: nowrap; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;background-color:#ffffff;">No</div></div></foreignObject><text x="9" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><rect x="-134" y="374" width="308" height="38" fill="none" stroke="none" transform="rotate(-90,20,393)" pointer-events="none"/><g transform="translate(-48,384)rotate(-90,68,9.5)"><switch><foreignObject pointer-events="all" width="136" height="23" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 18px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; overflow: hidden; max-height: 34px; max-width: 304px; width: 136px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">For each particle</div></div></foreignObject><text x="68" y="21" fill="#000000" text-anchor="middle" font-size="18px" font-family="Helvetica">[Not supported by viewer]</text></switch></g></g></svg>
+						</div>
+						<div class="column-right" style="width: 40%;">
+							<h3 >Particle representation</h3>
+
+							<ul style="margin-left: 70px; width: 300px;">
+								<li>Current user position:
+									<br>
+									<p>$$(x^u_t,y^u_t)$$</p>
+								</li>
+								<li><i>Extended Kalman Filter</i> for each landmark:
+									<br>
+									<p>$$[(x_t^{[m]}, y_t^{[m]}), \Sigma_{t}^{[m]}]$$</p>
+								</li>
+								<li>Importance weight:
+									<br>
+									<p>$$w = f(z \;|\; h, \sigma)$$</p>
+								</li>
+
+								<li>Trace of the user's path:
+									<br>
+									<p>$$[(x^u_0,y^u_0), \ldots, (x^u_t,y^u_t)]$$</p>
+									<small>(Only required for visualisation)</small>
+								</li>
+							</ul>
+						</div>
+					</section>
+					<section>
+						<h3>EKF Update</h3>
+						<div class="column-left">
+							\begin{align}
+								h_i &= \sqrt[]{(x_t^u - x_{t}^{[m]})^2 + (y_t^u - y_t^{[m]})^2}\\
+								v &= z_i - h\\
+								H &= [\frac{x_t^u - x_{t}^{[m]}}{h_i}, \frac{y_t^u - y_t^{[m]}}{h_i}]^T\\
+								\sigma_v &= H \Sigma_t^{[m]} H^T + Q_t\\
+								K &= \Sigma_{t}^{[m]} H^T \sigma_v^{-1}
+							\end{align}
+
+						</div>
+
+						<div class="column-right">
+							<p>$$[x_{t+1}^{[m]}, y_{t+1}^{[m]}]^T = [x_{t}^{[m]}, y_{t}^{[m]}]^T + Kv$$</p>
+
+							<p>$$\Sigma_{t+1}^{[m]} = \Sigma_{t}^{[m]} - K \sigma_v K^T$$</p>
+						</div>
+					</section>
 				</section>
 
 				<section>
@@ -269,8 +340,8 @@
 						<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
 
 						<p><b>Resample step</b>, <code> for</code> $m \in M$<code>:</code></p>
-						<p>draw $i$ with probability $\propto w_t^{[i]}$</p>
-						<p>$\chi_t = \chi_t + x_t^{[i]}$</p>
+						<p>draw $i$ with probability $\propto w_t^{[m]}$</p>
+						<p>$\chi_t = \chi_t + x_t^{[m]}$</p>
 					</div>
 				</section>
 				<section>
@@ -287,8 +358,8 @@
 						<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
 
 						<p><b>Resample step</b>, <code> for</code> $m \in M$<code>:</code></p>
-						<p>draw $i$ with probability $\propto w_t^{[i]}$</p>
-						<p>$\chi_t = \chi_t + x_t^{[i]}$</p>
+						<p>draw $i$ with probability $\propto w_t^{[m]}$</p>
+						<p>$\chi_t = \chi_t + x_t^{[m]}$</p>
 					</div>
 				</section>
 				<section>
@@ -305,8 +376,8 @@
 						<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
 
 						<p><b>Resample step</b>, <code> for</code> $m \in M$<code>:</code></p>
-						<p>draw $i$ with probability $\propto w_t^{[i]}$</p>
-						<p>$\chi_t = \chi_t + x_t^{[i]}$</p>
+						<p>draw $i$ with probability $\propto w_t^{[m]}$</p>
+						<p>$\chi_t = \chi_t + x_t^{[m]}$</p>
 					</div>
 				</section>
 				<section>
@@ -323,8 +394,8 @@
 						<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
 
 						<p><b>Resample step</b>, <code> for</code> $m \in M$<code>:</code></p>
-						<p>draw $i$ with probability $\propto w_t^{[i]}$</p>
-						<p>$\chi_t = \chi_t + x_t^{[i]}$</p>
+						<p>draw $i$ with probability $\propto w_t^{[m]}$</p>
+						<p>$\chi_t = \chi_t + x_t^{[m]}$</p>
 					</div>
 				</section>
 				<section>
@@ -341,32 +412,8 @@
 						<p>$w_t^{[m]} = p(z_t | x_t^{[m]}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z_t-\mu)^{2}}{2\sigma^{2}}}$</p>
 
 						<p><b>Resample step</b>, <code> for</code> $m \in M$<code>:</code></p>
-						<p>draw $i$ with probability $\propto w_t^{[i]}$</p>
-						<p>$\chi_t = \chi_t + x_t^{[i]}$</p>
-					</div>
-				</section>
-
-				<section>
-					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="521px" height="594px" version="1.1"><defs/><g transform="translate(0.5,0.5)"><ellipse cx="251" cy="32" rx="30" ry="30" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(232,26)"><switch><foreignObject pointer-events="all" width="38" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 38px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Start</div></div></foreignObject><text x="19" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><rect x="181" y="82" width="140" height="50" rx="3" ry="3" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(182,94)"><switch><foreignObject pointer-events="all" width="138" height="30" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 136px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Read RSSI &amp; motion data</div></div></foreignObject><text x="69" y="21" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 251 62 L 251 75.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 251 80.88 L 247.5 73.88 L 251 75.63 L 254.5 73.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 251 147 L 296 187 L 251 227 L 206 187 Z" fill="#ffffff" stroke="#000000" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(217,181)"><switch><foreignObject pointer-events="all" width="68" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 68px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">New step?</div></div></foreignObject><text x="34" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 251 132 L 251 142 L 251 137 L 251 140.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 251 145.88 L 247.5 138.88 L 251 140.63 L 254.5 138.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 296 187 L 361 187 L 361 107 L 327.37 107" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 322.12 107 L 329.12 103.5 L 327.37 107 L 329.12 110.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(353,140)"><switch><foreignObject pointer-events="all" width="17" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; white-space: nowrap; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;background-color:#ffffff;">No</div></div></foreignObject><text x="9" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><rect x="181" y="278" width="140" height="50" rx="3" ry="3" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(197,297)"><switch><foreignObject pointer-events="all" width="108" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 108px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Sample new pose</div></div></foreignObject><text x="54" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 251 227 L 251 271.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 251 276.88 L 247.5 269.88 L 251 271.63 L 254.5 269.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(240,248)"><switch><foreignObject pointer-events="all" width="23" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; white-space: nowrap; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;background-color:#ffffff;">Yes</div></div></foreignObject><text x="12" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 166 278 L 116 278 L 116 512 L 166 512" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/><rect x="1" y="379" width="100" height="30" fill="none" stroke="none" pointer-events="none"/><g transform="translate(3,382)"><switch><foreignObject pointer-events="all" width="91" height="30" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; white-space: nowrap;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">For each particle<div><br /></div></div></div></foreignObject><text x="46" y="21" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 251 343 L 296 383 L 251 423 L 206 383 Z" fill="#ffffff" stroke="#000000" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(203,377)"><switch><foreignObject pointer-events="all" width="96" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 96px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">New landmark?</div></div></foreignObject><text x="48" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 251 328 L 251 338 L 251 333 L 251 336.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 251 341.88 L 247.5 334.88 L 251 336.63 L 254.5 334.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><rect x="341" y="358" width="140" height="50" rx="3" ry="3" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(361,377)"><switch><foreignObject pointer-events="all" width="100" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 100px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Initialisation filter</div></div></foreignObject><text x="50" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><rect x="181" y="457" width="140" height="50" rx="3" ry="3" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(212,476)"><switch><foreignObject pointer-events="all" width="78" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 78px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Update EKF</div></div></foreignObject><text x="39" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 251 423 L 251 450.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 251 455.88 L 247.5 448.88 L 251 450.63 L 254.5 448.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(241,428)"><switch><foreignObject pointer-events="all" width="17" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; white-space: nowrap; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;background-color:#ffffff;">No</div></div></foreignObject><text x="9" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 296 383 L 334.63 383" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 339.88 383 L 332.88 386.5 L 334.63 383 L 332.88 379.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(305,376)"><switch><foreignObject pointer-events="all" width="23" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; white-space: nowrap; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;background-color:#ffffff;">Yes</div></div></foreignObject><text x="12" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 411 408 L 411 482 L 327.37 482" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 322.12 482 L 329.12 478.5 L 327.37 482 L 329.12 485.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><rect x="181" y="542" width="140" height="50" rx="3" ry="3" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="none"/><g transform="translate(218,561)"><switch><foreignObject pointer-events="all" width="66" height="16" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 66px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Resample</div></div></foreignObject><text x="33" y="14" fill="#000000" text-anchor="middle" font-size="12px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><path d="M 251 507 L 251 535.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 251 540.88 L 247.5 533.88 L 251 535.63 L 254.5 533.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 321 567 L 511 567 L 511 32 L 287.37 32" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 282.12 32 L 289.12 28.5 L 287.37 32 L 289.12 35.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/></g></svg>
-				</section>
-
-				<section>
-					<h3>EKF Update</h3>
-					<div class="column-left">
-						\begin{align}
-							h_i &= \sqrt[]{(x_t^u - x_{t}^{[i]})^2 + (y_t^u - y_t^{[i]})^2}\\
-							v &= z_i - h\\
-							H &= [\frac{x_t^u - x_{t}^{[i]}}{h_i}, \frac{y_t^u - y_t^{[i]}}{h_i}]^T\\
-							\sigma_v &= H \Sigma_t^{[i]} H^T + Q_t\\
-							K &= \Sigma_{t}^{[i]} H^T \sigma_v^{-1}
-						\end{align}
-
-					</div>
-
-					<div class="column-right">
-						<p>$$[x_{t+1}^{[i]}, y_{t+1}^{[i]}]^T = [x_{t}^{[i]}, y_{t}^{[i]}]^T + Kv$$</p>
-
-						<p>$$\Sigma_{t+1}^{[i]} = \Sigma_{t}^{[i]} - K \sigma_v K^T$$</p>
+						<p>draw $i$ with probability $\propto w_t^{[m]}$</p>
+						<p>$\chi_t = \chi_t + x_t^{[m]}$</p>
 					</div>
 				</section>
 
@@ -392,8 +439,6 @@
 
 				<section>
 					<h2>Demo</h2>
-
-					<small>(movie of recorded data)</small>
 				</section>
 
 				<section data-background="#eeeeee">
@@ -450,43 +495,29 @@
 				</section>
 
 				<section>
-					<h2>Findings</h2>
+					<h4>Difference in performance between simulation and real world</h4>
 
-					World is very noisy (both movement and rssi)
+					<p>Walls, obstacles, users themselves</p>
+					<p>Mirroring errors</p>
+					<p>&rarr; Invest in better motion modelling</p>
+					<p>&rarr; Use more of the environment</p>
 
-					Performance per beacon is dependent on movement and location in room
+					<br>
+					<h4>Beacon performance fluctuates</h4>
 
-					Map fusing to overcome problem with beacon errors
-
-					Real time and decentralised is possible without using additional sensors
-
+					<p>Dependent on movement and location.</p>
+					<p>&rarr; Longer traces</p>
+					<p>&rarr; <i>Map fusing</i></p>
 
 				</section>
-				<section>
-					<h2>More?</h2>
 
-					<div class="column-left">
-						<h4>Short term</h4>
-						<img class="fragment" src="img/location_testing.png">
-						<img class="fragment" src="img/future_init.png" style="position: absolute; left: 100px; bottom: 0; height: 300px">
-					</div>
-					<div class="column-right">
-						<h4>Long term</h4>
-
-						<ul class="fragment">
-							<li>Improve accuracy of motion data</li>
-							<li>Map fusing</li>
-							<li>Sending data to devices</li>
-						</ul>
-					</div>
-				</section>
 				<section>
 
 					<h2>&ldquo;Human SLAM&rdquo;</h2>
-
+					<br>
 					<p>Using an adapted range-only version of <b>FastSLAM</b> from robotics, we <b>replaced</b> the <b>robot</b> with a <b>human</b> and used that to <b>localise</b> both humans and devices inside buildings.</p>
-
-
+					<br>
+					<h4>Realtime / room-level accuracy / without prior information</h4>
 				</section>
 
 			</div>
@@ -508,7 +539,7 @@
 				progress: true,
 				history: true,
 				center: true,
-				slideNumber: true,
+				slideNumber: false,
 
 				//Special controls for pointers to skip backup slides
 				keyboard: {
