@@ -63,7 +63,7 @@
 
 					<br>
 
-					<p><i>"Every wall socket made smart!"</i> - <a href="https://dobots.nl/">DoBots</a></p>
+					<p>Intelligent wall socket for smart spaces - <a href="https://dobots.nl/">DoBots</a></p>
 				</section>
 
 				<section>
@@ -148,11 +148,38 @@
 					<div id="chart-dist-spike-legend" class="chart-legend"></div>
 				</section>
 
-				<section data-state="chart-kalman">
-					<h4>Filtered RSSI signal</h4>
-					<small>Using a Kalman filter with static motion model</small>
-					<canvas id="chart-kalman" height="500" width="960"></canvas>
-					<div id="chart-kalman-legend" class="chart-legend"></div>
+				<section>
+					<section data-state="chart-kalman">
+						<h4>Filtered RSSI signal</h4>
+						<small>Using a Kalman filter with static motion model</small>
+						<canvas id="chart-kalman" height="500" width="960"></canvas>
+						<div id="chart-kalman-legend" class="chart-legend"></div>
+					</section>
+
+					<section>
+						$$
+						x_{t} = A_{t}x_{t-1} + B_{t}u_{t} + \epsilon_{t}
+						$$
+
+						$$
+						z_{t} = C_{t}x_{t} + \delta_{t}
+						$$
+
+						<hr>
+
+						$$\bar\mu_t = A_t \mu_{t-1} + B_t u_t$$
+
+						$$\bar\Sigma_t = A_t \Sigma_{t-1} A_t^T + R_t$$
+
+						<br>
+						
+						$$K_t = \bar\Sigma_t C_t^T (C_t \bar\Sigma_t C_t^T + Q_t)^{-1}$$
+
+						<br>
+						$$\mu_t = \bar\mu_t + K_t(z_t - C_t \bar\mu_t)$$
+
+						$$\Sigma_t = (I - K_t C_t) \bar\Sigma_t$$
+					</section>
 				</section>
 
 				<section>
