@@ -234,7 +234,7 @@
 					<h3>Replacing robots with humans</h3>
 					<p>Robot &rarr; Human</p>
 					<p>Control &rarr; Heading &amp; Number of steps</p>
-					<p>2D Sensor readings &rarr; 1D RSSI measurements</p>
+					<p>2D Sensor readings &rarr; (1D) RSSI + initalisation phase</p>
 					<p>Focus on robot's path &rarr; Focus on device locations</p>
 				</section>
 				
@@ -448,6 +448,10 @@
 				</section>
 
 				<section>
+					<img src="img/js-implementation.png">				
+				</section>
+				
+				<section>
 					<h2>Demo</h2>
 				</section>
 
@@ -494,19 +498,6 @@
 						<p>Perfect world: 0.26 m (sd 0.07 m)</p>
 					</section>
 				</section>
-
-				<section>
-
-					<h2>Experiments</h2>
-
-					<div class="column-left">
-						<img src="img/env_1.jpg">
-						<img src="img/env_2.jpg">
-					</div>
-					<div class="column-right">
-						<img src="img/DoBeacon_1.png">
-					</div>
-				</section>
 								
 				<section>
 					<h3>Effect of RSSI measurements</h3>
@@ -527,8 +518,21 @@
 				</section>
 								
 				<section>
+
+					<h2>Live tests</h2>
+
+					<div class="column-left">
+						<img src="img/env_1.jpg">
+						<img src="img/env_2.jpg">
+					</div>
+					<div class="column-right">
+						<img src="img/DoBeacon_1.png">
+					</div>
+				</section>
+								
+				<section>
 					<section>
-						<h3>Live tests @ Almende</h3>
+						<h3>Localisation error @ Almende</h3>
 						
 						<img src="img/almende_vs_sim.png">
 					</section>
