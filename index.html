@@ -213,14 +213,14 @@
 
 					<br>
 					<img class="fragment" src="img/robottohuman.png">
-				</section>				
+				</section>
 
 				<section>
 					<h3>FastSLAM</h3>
-					
+
 					<p>Online version of SLAM using particle filters and EKF's.</p>
 				</section>
-			
+
 				<section>
 					<h3>Landmarks are independent</h3>
 					<img src="img/fastslam_network.png" style="height: 400px;">
@@ -229,7 +229,7 @@
 					p(x_{0:t}, m_{1:M} | z_{1:t}, u_{1:t}) = p(x_{0:t} | z_{1:t}, u_{1:t})\; \prod_{i=1}^M p(m_i | x_{0:t}, z_{1:t})
 					$$
 				</section>
-				
+
 				<section>
 					<h3>Replacing robots with humans</h3>
 					<p>Robot &rarr; Human</p>
@@ -237,7 +237,7 @@
 					<p>2D Sensor readings &rarr; (1D) RSSI + initalisation phase</p>
 					<p>Focus on robot's path &rarr; Focus on device locations</p>
 				</section>
-				
+
 
 				<section>
 					<h3>Particle filters</h3>
@@ -426,7 +426,7 @@
 						</div>
 					</section>
 				</section>
-								
+
 				<section>
 					<h2>Implementation details</h2>
 
@@ -448,9 +448,9 @@
 				</section>
 
 				<section>
-					<img src="img/js-implementation.png">				
+					<img src="img/js-implementation.png">
 				</section>
-				
+
 				<section>
 					<h2>Demo</h2>
 				</section>
@@ -469,20 +469,38 @@
 						</video>
 					</section>
 				</section>
-								
+
 				<section>
 					<h3>Simulations</h3>
-					
+
 					<p>Perfect world performance</p>
 					<p>Effect of number of RSSI measurements</p>
 					<p>Effect of device location</p>
-					
+
 					<h3>Live tests</h3>
-					
+
 					<p>Effect of environment noise</p>
 				</section>
 
 				<section>
+					<h3>Effect of RSSI measurements</h3>
+
+					<img src="img/sim_rssi_per_step_line1.png">
+
+					<small>Curve estimation model. Significant regression equation.<br>
+						$$(F (1, 3498) = 33868.750, p &lt; .000), R^2 = .906$$</small>
+				</section>
+
+				<section>
+					<section>
+						<h3>Effect of device location</h3>
+
+						<img height="550px" src="img/sim_rssi_per_step_line_per_landmark1.png">
+
+						<small>Repeated-measure-ANOVA for each condition. Significant effect for each condition (p = .000).<br>
+							$$eta^2 = [.503, .698, .284, .063, .052, .065, .065]$$</small>
+					</section>
+
 					<section  data-state="chart-sim-1">
 						<h3>Simulations</h3>
 						<small>Error in meters per landmark, 100 runs per data set</small>
@@ -498,25 +516,7 @@
 						<p>Perfect world: 0.26 m (sd 0.07 m)</p>
 					</section>
 				</section>
-								
-				<section>
-					<h3>Effect of RSSI measurements</h3>
-					
-					<img src="img/sim_rssi_per_step_line1.png">
-					
-					<small>Curve estimation model. Significant regression equation.<br>
-						$$(F (1, 3498) = 33868.750, p &lt; .000), R^2 = .906$$</small>
-				</section>
 
-				<section>
-					<h3>Effect of device location</h3>
-					
-					<img height="550px" src="img/sim_rssi_per_step_line_per_landmark1.png">
-					
-					<small>Repeated-measure-ANOVA for each condition. Significant effect for each condition (p = .000).<br>
-						$$eta^2 = [.503, .698, .284, .063, .052, .065, .065]$$</small>
-				</section>
-								
 				<section>
 
 					<h2>Live tests</h2>
@@ -529,12 +529,14 @@
 						<img src="img/DoBeacon_1.png">
 					</div>
 				</section>
-								
+
 				<section>
 					<section>
 						<h3>Localisation error @ Almende</h3>
-						
+
 						<img src="img/almende_vs_sim.png">
+
+						<p><small>Accuraccy of 2.3m, 60 steps ~ 2min walking</small></p>
 					</section>
 					<section data-state="chart-real-world">
 						<h3>Real world experiments</h3>

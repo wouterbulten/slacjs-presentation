@@ -1,4 +1,4 @@
-var timeBetweenSteps = 1000;
+var timeBetweenSteps = 2000;
 
 var step = function() {
 	var success = SlacApp.step();
