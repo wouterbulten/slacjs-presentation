@@ -98,6 +98,13 @@
 				</section>
 
 				<section>
+				
+					<h3>General idea</h3>
+					<img src="/img/floorplan_projectoverview.png">
+					
+				</section>
+				
+				<section>
 					<h2>Outline</h2>
 
 					<p><span style="color: #6E6E6E">Sources of Input:</span> &nbsp;<i>What can we use?</i></p>
@@ -107,12 +114,6 @@
 					<p><span style="color: #6E6E6E">The result:</span> &nbsp;<i>Room level accuracy</i></p>
 				</section>
 
-				<section>
-				
-					<h3>General idea</h3>
-					<img src="/img/floorplan_projectoverview.png">
-					
-				</section>
 				<section>
 
 					<img src="img/Bluetooth_Smart_Logo.svg" style="width: 400px;">
@@ -222,13 +223,7 @@
 				</section>
 
 				<section>
-					<h3>FastSLAM</h3>
-
-					<p>Online version of SLAM using particle filters and EKF's.</p>
-				</section>
-
-				<section>
-					<h3>Landmarks are independent</h3>
+					<h3>FastSLAM: independent landmarks</h3>
 					<img src="img/fastslam_network.png" style="height: 400px;">
 
 					$$
@@ -239,9 +234,12 @@
 				<section>
 					<h3>Replacing robots with humans</h3>
 					<p>Robot &rarr; Human</p>
-					<p>Control &rarr; Heading &amp; Number of steps</p>
-					<p>2D Sensor readings &rarr; (1D) RSSI + initalisation phase</p>
-					<p>Focus on robot's path &rarr; Focus on device locations</p>
+					<br>
+					<p class="fragment" data-fragment-index="0">Control &rarr; Heading &amp; Number of steps</p>
+					<p class="fragment" data-fragment-index="0">Landmark &rarr; Device / Crownstone</p>
+					<br>
+					<p class="fragment" data-fragment-index="1">2D Sensor readings &rarr; (1D) RSSI + initalisation phase</p>
+					<p class="fragment" data-fragment-index="1">Focus on robot's path &rarr; Focus on device locations</p>
 				</section>
 
 
@@ -483,6 +481,7 @@
 					<p>Effect of number of RSSI measurements</p>
 					<p>Effect of device location</p>
 
+					<br>
 					<h3>Live tests</h3>
 
 					<p>Effect of environment noise</p>
@@ -585,14 +584,14 @@
 				<section>
 					<h4>Future work: Map fusing</h4>
 					
-					<img src="/img/mapfusing.png">
+					<img height="400px" src="/img/mapfusing.png">
 				</section>
 
 				<section>
 
 					<h2>&ldquo;Human SLAM&rdquo;</h2>
 					<br>
-					<p>Using an adapted range-only version of <b>SLAM</b> from robotics, we <b>replaced</b> the <b>robot</b> with a <b>human</b> and used that to <b>locate</b> both humans and devices inside buildings.</p>
+					<p>Using an adapted range-only version of <b>SLAM</b>, we <b>replaced</b> the <b>robot</b> with a <b>human</b> and used that to <b>locate</b> both humans and devices inside buildings.</p>
 					<br>
 					<h4>Realtime / room-level accuracy / without prior information</h4>
 				</section>
