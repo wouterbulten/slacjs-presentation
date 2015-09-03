@@ -100,7 +100,7 @@
 				<section>
 				
 					<h3>General idea</h3>
-					<img src="/img/floorplan_projectoverview.png">
+					<img src="img/floorplan_projectoverview.png">
 					
 				</section>
 				
@@ -223,15 +223,6 @@
 				</section>
 
 				<section>
-					<h3>FastSLAM: independent landmarks</h3>
-					<img src="img/fastslam_network.png" style="height: 400px;">
-
-					$$
-					p(x_{0:t}, m_{1:M} | z_{1:t}, u_{1:t}) = p(x_{0:t} | z_{1:t}, u_{1:t})\; \prod_{i=1}^M p(m_i | x_{0:t}, z_{1:t})
-					$$
-				</section>
-
-				<section>
 					<h3>Replacing robots with humans</h3>
 					<p>Robot &rarr; Human</p>
 					<br>
@@ -242,6 +233,15 @@
 					<p class="fragment" data-fragment-index="1">Focus on robot's path &rarr; Focus on device locations</p>
 				</section>
 
+				
+				<section>
+					<h3>FastSLAM: independent landmarks</h3>
+					<img src="img/fastslam_network.png" style="height: 400px;">
+
+					$$
+					p(x_{0:t}, m_{1:M} | z_{1:t}, u_{1:t}) = p(x_{0:t} | z_{1:t}, u_{1:t})\; \prod_{i=1}^M p(m_i | x_{0:t}, z_{1:t})
+					$$
+				</section>
 
 				<section>
 					<h3>Particle filters</h3>
@@ -259,7 +259,7 @@
 					<div class="column-left">
 						<img src="img/pf/pf_1.png">
 					</div>
-					<div class="column-right">
+					<div class="column-right" style="height: 550px">
 						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
 					</div>
 				</section>
@@ -267,21 +267,25 @@
 					<div class="column-left">
 						<img src="img/pf/pf_2.png">
 					</div>
-					<div class="column-right">
+					<div class="column-right" style="height: 550px">
 						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
 
-						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
+						<p><b>Initialisation</b>, <code> for</code> $m \in M$<code>:</code></p>
 
-						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
+						<p>$x_t^{[m]} \sim p(x_t | z_t, x_t^u$)</p>
+
 					</div>
 				</section>
 				<section>
 					<div class="column-left">
 						<img src="img/pf/pf_2.png">
 					</div>
-					<div class="column-right">
+					<div class="column-right" style="height: 550px">
 						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
 
+						<p><b>Initialisation</b>, <code> for</code> $m \in M$<code>:</code></p>
+
+						<p>$x_t^{[m]} \sim p(x_t | z_t, x_t^u$)</p>
 						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
 
 						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
@@ -293,9 +297,12 @@
 					<div class="column-left">
 						<img src="img/pf/pf_3.png">
 					</div>
-					<div class="column-right">
+					<div class="column-right" style="height: 550px">
 						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
 
+						<p><b>Initialisation</b>, <code> for</code> $m \in M$<code>:</code></p>
+
+						<p>$x_t^{[m]} \sim p(x_t | z_t, x_t^u$)</p>
 						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
 
 						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
@@ -311,9 +318,12 @@
 					<div class="column-left">
 						<img src="img/pf/pf_4.png">
 					</div>
-					<div class="column-right">
+					<div class="column-right" style="height: 550px">
 						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
 
+						<p><b>Initialisation</b>, <code> for</code> $m \in M$<code>:</code></p>
+
+						<p>$x_t^{[m]} \sim p(x_t | z_t, x_t^u$)</p>
 						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
 
 						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
@@ -329,9 +339,12 @@
 					<div class="column-left">
 						<img src="img/pf/pf_5.png">
 					</div>
-					<div class="column-right">
+					<div class="column-right" style="height: 550px">
 						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
 
+						<p><b>Initialisation</b>, <code> for</code> $m \in M$<code>:</code></p>
+
+						<p>$x_t^{[m]} \sim p(x_t | z_t, x_t^u$)</p>
 						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
 
 						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
@@ -347,9 +360,12 @@
 					<div class="column-left">
 						<img src="img/pf/pf_6.png">
 					</div>
-					<div class="column-right">
+					<div class="column-right" style="height: 550px">
 						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
 
+						<p><b>Initialisation</b>, <code> for</code> $m \in M$<code>:</code></p>
+
+						<p>$x_t^{[m]} \sim p(x_t | z_t, x_t^u$)</p>
 						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
 
 						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
@@ -368,6 +384,9 @@
 					<div class="column-right">
 						<p>$\bar\chi_t = \chi_t = \emptyset$</p>
 
+						<p><b>Initialisation</b>, <code> for</code> $m \in M$<code>:</code></p>
+
+						<p>$x_t^{[m]} \sim p(x_t | z_t, x_t^u$)</p>
 						<p><b>Sample step</b>, <code> for</code> $m \in M$<code>:</code></p>
 
 						<p>$x_t^{[m]} \sim p(x_t | u_t, x_{t-1}^{[m]}$)</p>
@@ -380,6 +399,13 @@
 					</div>
 				</section>
 
+				<section>
+				
+					<h3>Ingredients</h3>
+					
+					<p>Signal strength + Motion</p>
+					<p>FastSLAM + Particle Filters</p>
+				</section>
 				<section>
 					<section>
 						<div class="column-left" style="width: 60%;">
@@ -536,6 +562,15 @@
 				</section>
 
 				<section>
+								
+					<h3>Evaluation method</h3>
+					
+					<p>Online recordings (RSSI &amp; motion)</p>
+					<p>Offline evaluation, 500 per run</p>
+					<br>
+					<p>Measured average localisation error for DoBeacons</p>
+				</section>
+				<section>
 					<section>
 						<h3>Localisation error @ Almende</h3>
 
@@ -584,7 +619,7 @@
 				<section>
 					<h4>Future work: Map fusing</h4>
 					
-					<img height="400px" src="/img/mapfusing.png">
+					<img height="400px" src="img/mapfusing.png">
 				</section>
 
 				<section>
