@@ -435,7 +435,7 @@
 								</li>
 								<li>Importance weight:
 									<br>
-									<p>$$w = f(z \;|\; h, \sigma)$$</p>
+									<p>$$w_{t}^{[m]} = w_{t-1}^{[m]} f(z | h_{m}, \sigma_z)$$</p>
 								</li>
 
 								<li>Trace of the user's path:
@@ -448,18 +448,18 @@
 					</section>
 					<section>
 						<h3>EKF Update</h3>
-						<div class="column-left">
+						<div class="column-left" style="font-size: 0.6em !important;">
 							\begin{align}
-								h_i &= \sqrt[]{(x_t^u - x_{t}^{[m]})^2 + (y_t^u - y_t^{[m]})^2}\\
-								v &= z_i - h\\
-								H &= [\frac{x_t^u - x_{t}^{[m]}}{h_i}, \frac{y_t^u - y_t^{[m]}}{h_i}]^T\\
-								\sigma_v &= H \Sigma_t^{[m]} H^T + Q_t\\
-								K &= \Sigma_{t}^{[m]} H^T \sigma_v^{-1}
+								h_m(x_b^{[m]}, y_b^{[m]}) &= \sqrt[]{(x_{u,t}^{[m]} - x_b^{[m]})^2 + (y_{t,u}^{[m]} - y_b^{[m]})^2}\\
+								v &= z - h_m\\
+								H = \frac{\partial h_m}{\partial [x_b^{[m]} y_b^{[m]}]} &= [\frac{x_{u,t}^{[m]}  - x_{b}^{[m]} }{h_m}, \frac{y_{u,t}^{[m]} - y_b^{[m]}}{h_m}]^T\\
+								\sigma_v &= H \Sigma_{b,t}^{[m]} H^T + Q_t\\
+								K &= \Sigma_{b,t}^{[m]} H^T \sigma_v^{-1}
 							\end{align}
 
 						</div>
 
-						<div class="column-right">
+						<div class="column-right" style="font-size: 0.6em !important;">
 							<p>$$[x_{t+1}^{[m]}, y_{t+1}^{[m]}]^T = [x_{t}^{[m]}, y_{t}^{[m]}]^T + Kv$$</p>
 
 							<p>$$\Sigma_{t+1}^{[m]} = \Sigma_{t}^{[m]} - K \sigma_v K^T$$</p>
